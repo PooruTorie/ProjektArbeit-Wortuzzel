@@ -38,7 +38,6 @@ public class JTextInput extends JTextField {
 					
 					JLabel l = new JLabel(st);
 					Rectangle rec = JMoveComponent.getSize(st, Gui.f);
-					l.setBounds(rec);
 					Gui.jf.add(l);
 				} else {
 					setForeground(Color.RED);
