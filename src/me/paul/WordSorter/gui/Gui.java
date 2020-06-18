@@ -36,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
+import me.paul.WordSorter.Data;
 import me.paul.WordSorter.main;
 import me.paul.WordSorter.listener.JTextInput;
 import me.paul.WordSorter.listener.RightClickListener;
@@ -62,7 +63,7 @@ public class Gui {
 	public Gui StartGui() {
 		jf = new JFrame(main.Language.get("JFrame"));
 		try {
-			icon = ImageIO.read(new File("Data/icon.png"));
+			icon = ImageIO.read(Data.getFile("Data/icon.png"));
 			jf.setIconImage(icon);
 		} catch (IOException e) {
 			e.printStackTrace();
