@@ -1,50 +1,27 @@
 package me.paul.WordSorter.popups;
 
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.nio.channels.FileLockInterruptionException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.print.attribute.standard.JobHoldUntil;
-import javax.swing.Box;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.JTextField;
-import javax.swing.JViewport;
-import javax.swing.SpinnerListModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.JTextComponent;
-
-import org.apache.commons.io.comparator.DirectoryFileComparator;
-
 import me.paul.WordSorter.main;
 import me.paul.WordSorter.gui.Gui;
 import me.paul.api.DragDrop.JElements.JMoveComponent;
-import me.paul.api.DragDrop.JElements.JMovePanel;
 
 public class Settings extends JDialog implements ActionListener, ChangeListener {
 	

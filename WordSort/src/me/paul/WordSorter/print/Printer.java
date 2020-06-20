@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SpringLayout;
+
 import me.paul.WordSorter.main;
 
 public class Printer {
