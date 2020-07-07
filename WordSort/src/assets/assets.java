@@ -27,7 +27,6 @@ public class assets {
 				FileOutputStream w = new FileOutputStream(file);
 				for (int i = 0; i < in.available()*1000; i++) {
 					int b = in.read();
-					System.out.println(b);
 					w.write(b);
 				}
 				in.close();
