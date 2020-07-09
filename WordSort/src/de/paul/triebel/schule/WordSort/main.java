@@ -14,10 +14,10 @@ public class main {
 	public static void main(String[] args) {
 		try {
 			config = new Config(assets.getFile("config.ini"));
+			gui = new Gui();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		gui = new Gui();
 	}
 
 }
