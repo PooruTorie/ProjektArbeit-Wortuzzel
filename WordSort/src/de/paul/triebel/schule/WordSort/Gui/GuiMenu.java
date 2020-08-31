@@ -32,7 +32,8 @@ public class GuiMenu extends JMenuBar {
 	}
 
 	private static JMenuItem getItem(String st) {
-		// TODO Auto-generated method stub
-		return null;
+		JMenuItem menu = new JMenuItem();
+		menu.setText(st);
+		return menu;
 	}
 }
