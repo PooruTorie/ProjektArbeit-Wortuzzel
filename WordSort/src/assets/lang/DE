@@ -1,3 +1,9 @@
 {
-   "test": "Test"
+   "file": "Datei",
+   "open": "Öffnen",
+   "save": "Speichern",
+   
+   "options": "Einstellungen",
+   
+   "input": "Geben sie hier ihren Text ein:"
 }

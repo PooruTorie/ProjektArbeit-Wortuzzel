@@ -1,3 +1,9 @@
 {
-   "test": "test"
+   "file": "File",
+   "open": "Open",
+   "save": "Save",
+   
+   "options": "Options",
+   
+   "input": "Put here your text in:"
 }

@@ -26,4 +26,8 @@ public class main {
 	public static LanguageFile getLanguageFile() {
 		return lang;
 	}
+	
+	public static Gui getGui() {
+		return gui;
+	}
 }
