@@ -1,3 +1,6 @@
 ./WordSort/bin/
+./WordSort/data/
+./WordSort/.classpath
+./WordSort/.settings/
 ./Start.bat
 ./data

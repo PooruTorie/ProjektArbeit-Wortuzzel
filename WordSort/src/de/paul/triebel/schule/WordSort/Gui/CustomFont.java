@@ -10,7 +10,7 @@ public class CustomFont {
 
 	public static Font get() {
 		try {
-			return Font.createFont(Font.BOLD, assets.getFile("font.ttf")).deriveFont(Font.BOLD, 12f);
+			return Font.createFont(Font.TRUETYPE_FONT, assets.getFile("font.ttf"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
