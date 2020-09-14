@@ -33,7 +33,9 @@ public class GuiMenu extends JMenuBar {
 	
 	private static JMenu get(String st) {
 		JMenu menu = new JMenu((String) main.getLanguageFile().get(st));
+		menu.setFont(CustomFont.get(28));
 		for (JMenuItem i : getItems(menu, st)) {
+			i.setFont(CustomFont.get(18));
 			menu.add(i);
 		}
 		return menu;

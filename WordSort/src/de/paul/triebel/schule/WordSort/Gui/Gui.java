@@ -23,7 +23,7 @@ public class Gui extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
-		setFont(CustomFont.get());
+		setFont(CustomFont.get(20));
 		setBackground(new Color(248, 241, 239));
 		
 		setSize(getGraphicsConfiguration().getBounds().getSize());
@@ -32,8 +32,8 @@ public class Gui extends JFrame {
 		
 		GuiMenu.update(this);
 		
-		add(new InputField(), BorderLayout.NORTH);
-		add(new DragPanel(), BorderLayout.SOUTH);
+		add(new InputField(this), BorderLayout.NORTH);
+		add(new DragPanel(this), BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}

@@ -22,7 +22,7 @@ public class assets {
 		File file = new File(folder.getAbsolutePath()+"/"+string);
 		if (!file.exists()) {
 			InputStream in = assets.class.getResourceAsStream(string);
-			byte[] data = new byte[16384];
+			byte[] data = new byte[54576];
 			if (!folder.exists()) {
 				folder.mkdirs();
 			}
@@ -34,7 +34,6 @@ public class assets {
 				System.out.println(size);
 				for (int i = 0; i < size; i++) {
 					int b = data[i];
-					System.out.println(Integer.toString(b, 16));
 					w.write(b);
 				}
 				in.close();
