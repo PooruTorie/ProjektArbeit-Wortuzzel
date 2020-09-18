@@ -10,4 +10,18 @@ public class DragPanel extends JPanel {
 		super();
 	}
 	
+	public void addLine(String string) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void openSaveFile() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void openFromFile() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -21,8 +21,12 @@ import de.paul.triebel.schule.WordSort.Gui.Options.Options;
 public class GuiMenu extends JMenuBar {
 	
 	public static void update(Gui gui) {
+		GuiMenu.gui = gui;
+		
 		gui.setJMenuBar(new GuiMenu());
 	}
+
+	private static Gui gui;
 	
 	public GuiMenu() {
 		super();
@@ -46,8 +50,20 @@ public class GuiMenu extends JMenuBar {
 		ArrayList<JMenuItem> menus = new ArrayList<>();
 		switch (st) {
 		case "file":
-			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), null));
-			menus.add(createMenuItem((String) main.getLanguageFile().get("save"), null));
+			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), new Runnable() {
+				
+				@Override
+				public void run() {
+					gui.dragPanel.openFromFile();
+				}
+			}));
+			menus.add(createMenuItem((String) main.getLanguageFile().get("save"), new Runnable() {
+				
+				@Override
+				public void run() {
+					gui.dragPanel.openSaveFile();
+				}
+			}));
 			break;
 		case "options":
 			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), new Runnable() {

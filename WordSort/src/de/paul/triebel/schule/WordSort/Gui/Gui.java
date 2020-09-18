@@ -18,6 +18,9 @@ public class Gui extends JFrame {
 	
 	private final static String title = "Wortuzzel";
 	
+	public DragPanel dragPanel;
+	public InputField inputField;
+	
 	public Gui() {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,8 +35,10 @@ public class Gui extends JFrame {
 		
 		GuiMenu.update(this);
 		
-		add(new InputField(this), BorderLayout.NORTH);
-		add(new DragPanel(this), BorderLayout.SOUTH);
+		inputField = new InputField(this);
+		add(inputField, BorderLayout.NORTH);
+		dragPanel = new DragPanel(this);
+		add(dragPanel, BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}
