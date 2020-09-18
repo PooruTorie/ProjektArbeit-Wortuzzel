@@ -32,7 +32,7 @@ public class GuiMenu extends JMenuBar {
 		super();
 		
 		add(GuiMenu.get("file"));
-		add(GuiMenu.get("options"));
+		add(GuiMenu.get("view"));
 	}
 	
 	private static JMenu get(String st) {
@@ -65,8 +65,8 @@ public class GuiMenu extends JMenuBar {
 				}
 			}));
 			break;
-		case "options":
-			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), new Runnable() {
+		case "view":
+			menus.add(createMenuItem((String) main.getLanguageFile().get("options"), new Runnable() {
 				
 				@Override
 				public void run() {
