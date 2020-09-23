@@ -38,7 +38,7 @@ public class Gui extends JFrame {
 		inputField = new InputField(this);
 		add(inputField, BorderLayout.NORTH);
 		dragPanel = new DragPanel(this);
-		add(dragPanel, BorderLayout.SOUTH);
+		add(dragPanel, BorderLayout.CENTER);
 		
 		setVisible(true);
 	}

@@ -1,6 +1,7 @@
 package de.paul.triebel.schule.WordSort;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import assets.assets;
 import de.paul.triebel.schule.WordSort.Data.Config;
@@ -14,6 +15,8 @@ public class main {
 	private static LanguageFile lang;
 
 	public static void main(String[] args) {
+		System.out.println(Arrays.toString(args));
+		
 		try {
 			config = new Config(assets.getFile("config.ini"));
 			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));

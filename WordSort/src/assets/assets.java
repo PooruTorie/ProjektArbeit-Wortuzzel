@@ -29,9 +29,10 @@ public class assets {
 			try {
 				createParentFolder(file);
 				file.createNewFile();
+				
+				
 				FileOutputStream w = new FileOutputStream(file);
 				int size = in.read(data);
-				System.out.println(size);
 				for (int i = 0; i < size; i++) {
 					int b = data[i];
 					w.write(b);
@@ -42,6 +43,7 @@ public class assets {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(file);
 		return file;
 	}
 

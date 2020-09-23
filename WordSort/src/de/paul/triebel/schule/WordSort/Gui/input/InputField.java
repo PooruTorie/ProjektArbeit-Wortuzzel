@@ -29,7 +29,7 @@ public class InputField extends JPanel implements ActionListener {
 		
 		this.gui = gui;
 		
-		setSize(100, 20);
+		setBounds(0, 0, gui.getWidth(), gui.getHeight()/8);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		setBackground(new Color(204, 248, 239));
