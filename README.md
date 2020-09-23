@@ -1,4 +1,4 @@
 # ProjektArbeit-WordSort
 ## ProjectArbeit abgabe 2021
 
-**Die ausführbare Datei ist [`WordSorter.jar`](WordSort.jar)**
+**Die ausführbare Datei ist [`Wortuzzel.exe`](Wortuzzel.exe)**
