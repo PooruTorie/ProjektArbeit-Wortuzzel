@@ -1,21 +1,15 @@
 package de.paul.triebel.schule.WordSort.Gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import de.paul.triebel.schule.WordSort.main;
+import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 import de.paul.triebel.schule.WordSort.Gui.Options.Options;
 
 public class GuiMenu extends JMenuBar {
@@ -50,11 +44,18 @@ public class GuiMenu extends JMenuBar {
 		ArrayList<JMenuItem> menus = new ArrayList<>();
 		switch (st) {
 		case "file":
+			menus.add(createMenuItem((String) main.getLanguageFile().get("new"), new Runnable() {
+				
+				@Override
+				public void run() {
+					gui.dragPanel.clear();
+				}
+			}));
 			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), new Runnable() {
 				
 				@Override
 				public void run() {
-					gui.dragPanel.openFromFile();
+					gui.dragPanel.openFromFile(null);
 				}
 			}));
 			menus.add(createMenuItem((String) main.getLanguageFile().get("save"), new Runnable() {

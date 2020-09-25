@@ -1,5 +1,6 @@
 package de.paul.triebel.schule.WordSort;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -21,8 +22,19 @@ public class main {
 			config = new Config(assets.getFile("config.ini"));
 			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));
 			gui = new Gui();
+			
+			testOpenFile(args);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private static void testOpenFile(String[] args) {
+		if (args.length != 0) {
+			File f = new File(args[0]);
+			if (f.exists()) {
+				gui.dragPanel.openFromFile(f);
+			}
 		}
 	}
 

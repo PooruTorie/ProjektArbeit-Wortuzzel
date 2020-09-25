@@ -1,5 +1,6 @@
 {
    "file": "File",
+   "new": "New",
    "open": "Open",
    "save": "Save",
    
@@ -8,5 +9,6 @@
    
    "input": "Put here your text in:",
    
-   "filter": "Open Text ore Wortuzzel Files"
+   "openfilter": "Open Text ore Wortuzzel Files",
+   "savefilter": "Save Wortuzzel File"
 }

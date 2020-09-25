@@ -1,5 +1,6 @@
 {
    "file": "Datei",
+   "new": "Neu",
    "open": "Öffnen",
    "save": "Speichern",
    
@@ -8,5 +9,6 @@
    
    "input": "Geben sie hier ihren Text ein:",
    
-   "filter": "Öffne Text oder Wortuzzel Dateien"
+   "openfilter": "Öffne Text oder Wortuzzel Dateien",
+   "savefilter": "Speicher Wortuzzel Datei"
 }

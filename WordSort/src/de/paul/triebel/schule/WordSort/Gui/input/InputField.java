@@ -1,11 +1,6 @@
 package de.paul.triebel.schule.WordSort.Gui.input;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,8 +44,10 @@ public class InputField extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gui.dragPanel.addLine(input.getText());
-		input.setText("");
+		if (!input.getText().equals("")) {
+			gui.dragPanel.addLine(input.getText());
+			input.setText("");
+		}
 	}
 	
 }

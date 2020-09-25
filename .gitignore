@@ -2,6 +2,8 @@
 ./WordSort/data/
 ./WordSort/.classpath
 ./WordSort/.settings/
-./icon.ico
+./data/
 ./Start.bat
-./data
+./README.md
+./icon.ico
+./WordSort.jar

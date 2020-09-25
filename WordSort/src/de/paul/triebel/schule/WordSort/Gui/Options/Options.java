@@ -6,12 +6,10 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 
 import de.paul.triebel.schule.WordSort.main;
-import de.paul.triebel.schule.WordSort.Gui.Gui;
 
 public class Options {
 
 	public static void open() {
-		System.out.println("Options");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 		JDialog meinJDialog = new JDialog(main.getGui());

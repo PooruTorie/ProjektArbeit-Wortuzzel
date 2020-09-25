@@ -3,39 +3,36 @@ package de.paul.triebel.schule.WordSort.Gui.Drag;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceDropEvent;
-import java.awt.dnd.DragSourceEvent;
-import java.awt.dnd.DragSourceListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 
-public class DragObject extends JLabel implements MouseListener {
+public class DragObject extends JLabel implements MouseListener, MouseMotionListener {
+	
+	public static Font font = CustomFont.get(50);
 	
 	public DragObject(String text, Color color, Point position) {
 		super(text);
 		setBackground(color);
 		
-		setFont(CustomFont.get(50));
+		setFont(font);
 		
 		setBounds(new Rectangle(position, getSize(text)));
+		
+		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
-	private Dimension getSize(String text) {
-		FontRenderContext frc = new FontRenderContext(getFont().getTransform(), true, true);
-		Dimension size = getFont().getStringBounds(text, frc).getBounds().getSize();
+	public static Dimension getSize(String text) {
+		FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
+		Dimension size = font.getStringBounds(text, frc).getBounds().getSize();
 		return new Dimension(size.width+5, size.height);
 	}
 	
@@ -46,16 +43,27 @@ public class DragObject extends JLabel implements MouseListener {
 		
 		super.paintComponent(g);
 	}
+	
+	private Point lastPos;
+	private Point clickScreenOffset;
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void mousePressed(MouseEvent e) {
+      clickScreenOffset = e.getLocationOnScreen();
+
+      lastPos = getLocation();
+    }
+	
+	@Override
+    public void mouseDragged(MouseEvent e) {
+      int deltaX = e.getXOnScreen() - clickScreenOffset.x;
+      int deltaY = e.getYOnScreen() - clickScreenOffset.y;
+
+      setLocation(lastPos.x + deltaX, lastPos.y + deltaY);
+    }
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -67,4 +75,7 @@ public class DragObject extends JLabel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {}
 }

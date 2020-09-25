@@ -7,7 +7,7 @@ import javax.swing.filechooser.FileFilter;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Utils.FileUtils;
 
-public class OpenFilter extends FileFilter {
+public class SaveFilter extends FileFilter {
 
 	@Override
 	public boolean accept(File f) {
@@ -17,7 +17,7 @@ public class OpenFilter extends FileFilter {
 		
         String extension = FileUtils.getExtension(f);
         if (extension != null) {
-        	if (extension.equals("txt") || extension.equals("wuzz")) {
+        	if (extension.equals("wuzz")) {
 				return true;
 			}
         }
@@ -27,7 +27,7 @@ public class OpenFilter extends FileFilter {
 
 	@Override
 	public String getDescription() {
-		return (String) main.getLanguageFile().get("openfilter");
+		return (String) main.getLanguageFile().get("savefilter");
 	}
 
 }
