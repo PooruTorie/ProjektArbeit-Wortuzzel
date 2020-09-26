@@ -9,6 +9,9 @@
    
    "input": "Put here your text in:",
    
+   "color": "Change Color",
+   "remove": "Remove",
+   
    "openfilter": "Open Text ore Wortuzzel Files",
    "savefilter": "Save Wortuzzel File"
 }

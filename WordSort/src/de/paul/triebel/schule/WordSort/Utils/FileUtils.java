@@ -24,23 +24,27 @@ public class FileUtils {
         return extension;
 	}
 
-	public static void compileToFile(File saveFile, ArrayList<DragObject> objects) {
+	public static void compileToFile(File saveFile, ArrayList<ArrayList<DragObject>> objects) {
 		try {
 			FileWriter out = new FileWriter(saveFile);
 			
-			for (DragObject o : objects) {
-				out.write(13);
-				
-				out.write(""+o.getText());
-				out.write(0);
-				out.write(""+o.getX());
-				out.write(0);
-				out.write(""+o.getY());
-				out.write(0);
-				out.write(""+o.getBackground().getRGB());
-				out.write(0);
-				
-				out.flush();
+			for (int i = 0; i < objects.size(); i++) {
+				for (DragObject o : objects.get(i)) {
+					out.write(13);
+					
+					out.write(""+o.getText().replace(" ", ""));
+					out.write(0);
+					out.write(""+i);
+					out.write(0);
+					out.write(""+o.getX());
+					out.write(0);
+					out.write(""+o.getY());
+					out.write(0);
+					out.write(""+o.getBackground().getRGB());
+					out.write(0);
+					
+					out.flush();
+				}
 			}
 			
 			out.close();
@@ -50,7 +54,7 @@ public class FileUtils {
 		}
 	}
 	
-	public static ArrayList<DragObject> compileFromFile(File openFile) {
+	public static ArrayList<ArrayList<DragObject>> compileFromFile(File openFile) {
 		try {
 			FileReader r = new FileReader(openFile);
 			ArrayList<Byte> d = new ArrayList<>();
@@ -62,19 +66,31 @@ public class FileUtils {
 			
 			Iterator<Byte> data = d.iterator();
 			
-			ArrayList<DragObject> os = new ArrayList<>();
+			ArrayList<ArrayList<DragObject>> os = new ArrayList<>();
 			
 			while (data.hasNext()) {
 				byte startByte = data.next();
 				if (startByte == 13) {
 					byte[] text = getnextBytes(data);
+					int index = Integer.parseInt(new String(getnextBytes(data)));
 					byte[] x = getnextBytes(data);
 					byte[] y = getnextBytes(data);
 					byte[] rgb = getnextBytes(data);
 					
 					Point pos = new Point(Integer.parseInt(new String(x)), Integer.parseInt(new String(y)));
 					
-					os.add(new DragObject(new String(text), new Color(Integer.parseInt(new String(rgb))), pos));
+					ArrayList<DragObject> wos = new ArrayList<>();
+					try {
+						wos = os.get(index);
+					} catch (Exception e) {}
+					
+					wos.add(new DragObject(new String(text), new Color(Integer.parseInt(new String(rgb))), pos, index));
+					
+					try {
+						os.set(index, wos);
+					} catch (Exception e) {
+						os.add(wos);
+					}
 				}
 			}
 			

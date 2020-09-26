@@ -33,5 +33,7 @@ public class Gui extends JFrame {
 		add(dragPanel, BorderLayout.CENTER);
 		
 		setVisible(true);
+		
+		requestFocus();
 	}
 }

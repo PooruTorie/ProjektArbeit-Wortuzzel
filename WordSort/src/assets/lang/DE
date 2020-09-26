@@ -9,6 +9,9 @@
    
    "input": "Geben sie hier ihren Text ein:",
    
+   "color": "Farbe Ändern",
+   "remove": "Entfernen",
+   
    "openfilter": "Öffne Text oder Wortuzzel Dateien",
    "savefilter": "Speicher Wortuzzel Datei"
 }

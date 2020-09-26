@@ -41,6 +41,4 @@ dir
 
 java -jar WordSort.jar %1
 
-pause
-
 exit

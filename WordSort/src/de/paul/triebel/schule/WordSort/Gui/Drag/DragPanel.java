@@ -1,6 +1,7 @@
 package de.paul.triebel.schule.WordSort.Gui.Drag;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ public class DragPanel extends JPanel {
 	
 	public Gui gui;
 	
-	public ArrayList<DragObject> objects = new ArrayList<>();
+	public ArrayList<ArrayList<DragObject>> objects = new ArrayList<>();
 	
 	public DragPanel(Gui gui) {
 		super();
@@ -46,13 +47,15 @@ public class DragPanel extends JPanel {
 		Random cr = new Random();
 		Color color = new Color(cr.nextInt(155)+100, cr.nextInt(155)+100, cr.nextInt(155)+100);
 		String[] words = text.split(" ");
+		ArrayList<DragObject> wordObjects = new ArrayList<>();
 		for (String word : words) {
 			if (!word.equals("")) {
-				DragObject o = new DragObject(word, color, randomPos(DragObject.getSize(word)));
-				objects.add(o);
+				DragObject o = new DragObject(word, color, randomPos(DragObject.getSize(word)), objects.size());
+				wordObjects.add(o);
 				add(o);
 			}
 		}
+		objects.add(wordObjects);
 		repaint();
 	}
 
@@ -88,7 +91,7 @@ public class DragPanel extends JPanel {
 			FileUtils.compileToFile(saveFile, objects);
 		}
 		
-		gui.repaint();
+		repaint();
 	}
 
 	public void openFromFile(File openFile) {
@@ -124,18 +127,22 @@ public class DragPanel extends JPanel {
 				
 				objects = FileUtils.compileFromFile(openFile);
 				
-				for (DragObject o : objects) {
-					add(o);
+				for (ArrayList<DragObject> o : objects) {
+					for (DragObject dragObject : o) {
+						add(dragObject);	
+					}
 				}
 			}
 		}
 		
-		gui.repaint();
+		repaint();
 	}
 
 	public void clear() {
-		for (DragObject o : objects) {
-			remove(o);
+		for (ArrayList<DragObject> o : objects) {
+			for (DragObject dragObject : o) {
+				remove(dragObject);	
+			}
 		}
 		objects.clear();
 		repaint();
