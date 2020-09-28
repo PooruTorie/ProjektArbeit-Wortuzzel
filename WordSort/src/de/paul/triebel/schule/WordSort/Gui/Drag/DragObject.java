@@ -68,18 +68,21 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 
 	@Override
     public void mousePressed(MouseEvent e) {
-      clickScreenOffset = e.getLocationOnScreen();
-
-      lastPos = getLocation();
+	    clickScreenOffset = e.getLocationOnScreen();
+	
+	    lastPos = getLocation();
+	    
+	    main.getGui().dragPanel.setComponentZOrder(this, 0);
+	    repaint();
     }
 	
 	@Override
     public void mouseDragged(MouseEvent e) {
-      int deltaX = e.getXOnScreen() - clickScreenOffset.x;
-      int deltaY = e.getYOnScreen() - clickScreenOffset.y;
-
-      setLocation(lastPos.x + deltaX, lastPos.y + deltaY);
-      repaint();
+		int deltaX = e.getXOnScreen() - clickScreenOffset.x;
+		int deltaY = e.getYOnScreen() - clickScreenOffset.y;
+		
+		setLocation(lastPos.x + deltaX, lastPos.y + deltaY);
+		repaint();
     }
 	
 	@Override

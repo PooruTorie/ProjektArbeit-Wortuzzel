@@ -15,6 +15,9 @@ import java.util.Random;
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
+import de.paul.triebel.schule.WordSort.main;
+import de.paul.triebel.schule.WordSort.Data.Config;
 import de.paul.triebel.schule.WordSort.Gui.Gui;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.OpenFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.SaveFilter;
@@ -62,6 +65,11 @@ public class DragPanel extends JPanel {
 	public void openSaveFile() {
 		JFileChooser save = new JFileChooser();
 		
+		String path = (String) main.getConfig().get(Config.SAVEFOLDER);
+		if (path != null) {
+			save = new JFileChooser(new File(path));
+		}
+		
 		save.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		save.addChoosableFileFilter(new SaveFilter());
 		save.setAcceptAllFileFilterUsed(false);
@@ -69,6 +77,7 @@ public class DragPanel extends JPanel {
 		save.showSaveDialog(gui);
 		
 		File saveFile = save.getSelectedFile();
+		main.getConfig().saveSaveFolder(save.getCurrentDirectory());
 		
 		if (saveFile != null) {		
 			if (!saveFile.getName().contains(".wuzz")) {
@@ -98,6 +107,11 @@ public class DragPanel extends JPanel {
 		if (openFile == null) {
 			JFileChooser open = new JFileChooser();
 			
+			String path = (String) main.getConfig().get(Config.OPENFOLDER);
+			if (path != null) {
+				open = new JFileChooser(new File(path));
+			}
+			
 			open.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			open.addChoosableFileFilter(new OpenFilter());
 			open.setAcceptAllFileFilterUsed(false);
@@ -105,6 +119,7 @@ public class DragPanel extends JPanel {
 			open.showOpenDialog(gui);
 			
 			openFile = open.getSelectedFile();
+			main.getConfig().saveOpenFolder(open.getCurrentDirectory());
 		}
 		
 		if (openFile != null) {

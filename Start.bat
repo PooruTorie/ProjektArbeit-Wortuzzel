@@ -35,6 +35,7 @@
 echo off
 cls
 
+:InstallAndStart
 cd %APPDATA%
 
 dir

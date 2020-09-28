@@ -94,5 +94,18 @@ public class Config {
 	public JSONObject toJSON() {
 		return c;
 	}
+	
+	public static String SAVEFOLDER = "save_folder";
+	public static String OPENFOLDER = "open_folder";
+
+	public void saveSaveFolder(File f) {
+		set(SAVEFOLDER, f.getAbsolutePath());
+		save();
+	}
+
+	public void saveOpenFolder(File f) {
+		set(OPENFOLDER, f.getAbsolutePath());
+		save();
+	}
 
 }

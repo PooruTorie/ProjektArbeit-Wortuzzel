@@ -45,4 +45,8 @@ public class main {
 	public static Gui getGui() {
 		return gui;
 	}
+	
+	public static Config getConfig() {
+		return config;
+	}
 }
