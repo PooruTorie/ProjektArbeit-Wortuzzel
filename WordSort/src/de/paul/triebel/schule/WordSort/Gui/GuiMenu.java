@@ -33,8 +33,12 @@ public class GuiMenu extends JMenuBar {
 		JMenu menu = new JMenu((String) main.getLanguageFile().get(st));
 		menu.setFont(CustomFont.get(28));
 		for (JMenuItem i : getItems(menu, st)) {
-			i.setFont(CustomFont.get(18));
-			menu.add(i);
+			if (i == null) {
+				menu.addSeparator();
+			} else {
+				i.setFont(CustomFont.get(18));
+				menu.add(i);
+			}
 		}
 		return menu;
 	}
@@ -51,6 +55,7 @@ public class GuiMenu extends JMenuBar {
 					gui.dragPanel.clear();
 				}
 			}));
+			menus.add(null);
 			menus.add(createMenuItem((String) main.getLanguageFile().get("open"), new Runnable() {
 				
 				@Override
@@ -63,6 +68,14 @@ public class GuiMenu extends JMenuBar {
 				@Override
 				public void run() {
 					gui.dragPanel.openSaveFile();
+				}
+			}));
+			menus.add(null);
+			menus.add(createMenuItem((String) main.getLanguageFile().get("export"), new Runnable() {
+				
+				@Override
+				public void run() {
+					gui.dragPanel.exportPDF();
 				}
 			}));
 			break;

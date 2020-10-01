@@ -14,15 +14,17 @@ import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 
+import javax.crypto.SecretKeyFactorySpi;
 import javax.swing.JLabel;
 
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 import de.paul.triebel.schule.WordSort.Gui.RightClick.RightClickMenu;
+import de.paul.triebel.schule.WordSort.Utils.MathUtils;
 
 public class DragObject extends JLabel implements MouseListener, MouseMotionListener {
 	
-	public static Font font = CustomFont.get(50);
+	public static Font font = main.getDragObjectFont();
 	
 	private Color borderColor;
 	public int index;
@@ -47,18 +49,24 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	public static Dimension getSize(String text) {
 		FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
 		Dimension size = font.getStringBounds(text, frc).getBounds().getSize();
-		return new Dimension(size.width+5, size.height);
+		System.out.println(font.getSize());
+		System.out.println(new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1, font.getSize())))));
+		return new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1, font.getSize()))));
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
+		int round = (int) MathUtils.remap(20, 50, 2, 16, font.getSize());
+		int strokeWidth = (int) MathUtils.remap(20, 50, 1, 4, font.getSize());
+		
 		g2.setColor(getBackground());
-		g2.fillRoundRect(+5, +10, getWidth()-10, getHeight()-12, 10, 10);
-
+		g2.fillRoundRect(0+strokeWidth, 0+strokeWidth, getWidth()-(strokeWidth*2), getHeight()-(strokeWidth*2), round, round);
+		
 		g2.setColor(getBorderColor());
-		g2.setStroke(new BasicStroke(4));
-		g2.drawRoundRect(+5, +10, getWidth()-10, getHeight()-12, 10, 10);
+		g2.setStroke(new BasicStroke(strokeWidth));
+		g2.drawRoundRect(0+strokeWidth, 0+strokeWidth, getWidth()-(strokeWidth*2), getHeight()-(strokeWidth*2), round, round);
 		
 		super.paintComponent(g);
 	}
@@ -103,6 +111,13 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 		for (DragObject o : os) {
 			main.getGui().dragPanel.remove(o);
 		}
+		for (ArrayList<DragObject> list : main.getGui().dragPanel.objects) {
+			for (DragObject o : list) {
+				if (o.index > index) {
+					o.index--;
+				}
+			}
+		}
 	}
 	
 	public void setBorderColor(Color borderColor) {
@@ -122,4 +137,18 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 
 	@Override
 	public void mouseMoved(MouseEvent e) {}
+	
+	@Override
+	public String toString() {
+		return getText().replace(" ", "")+"_"+index;
+	}
+	
+	public void update() {
+		setFont(main.getDragObjectFont());
+		setSize(getSize(getText()));
+	}
+	
+	public static void updateFont() {
+		font = main.getDragObjectFont();
+	}
 }

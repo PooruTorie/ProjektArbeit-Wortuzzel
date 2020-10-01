@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
-import de.paul.triebel.schule.WordSort.Gui.input.InputField;
+import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
 
 public class Gui extends JFrame {
 	

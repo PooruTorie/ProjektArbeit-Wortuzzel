@@ -14,6 +14,7 @@ import java.util.Random;
 
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.paul.triebel.schule.WordSort.main;
@@ -27,7 +28,7 @@ public class DragPanel extends JPanel {
 	
 	public Gui gui;
 	
-	public ArrayList<ArrayList<DragObject>> objects = new ArrayList<>();
+	public static ArrayList<ArrayList<DragObject>> objects = new ArrayList<>();
 	
 	public DragPanel(Gui gui) {
 		super();
@@ -161,5 +162,18 @@ public class DragPanel extends JPanel {
 		}
 		objects.clear();
 		repaint();
+	}
+
+	public static void updateFont() {
+		System.out.println(objects);
+		for (ArrayList<DragObject> arrayList : objects) {
+			for (DragObject o : arrayList) {
+				o.update();
+			}
+		}
+	}
+
+	public void exportPDF() {
+		JOptionPane.showMessageDialog(main.getGui(), "Export PDF", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }

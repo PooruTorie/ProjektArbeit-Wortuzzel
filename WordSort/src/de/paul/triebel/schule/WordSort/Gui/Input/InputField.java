@@ -1,4 +1,4 @@
-package de.paul.triebel.schule.WordSort.Gui.input;
+package de.paul.triebel.schule.WordSort.Gui.Input;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
