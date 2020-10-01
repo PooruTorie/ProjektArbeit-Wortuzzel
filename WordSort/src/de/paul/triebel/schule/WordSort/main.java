@@ -29,8 +29,6 @@ public class main {
 			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));
 			gui = new Gui();
 			
-			System.out.println(MathUtils.remap(0, 10, 0, 5, 4));
-			
 			testOpenFile(args);
 		} catch (IOException e) {
 			e.printStackTrace();
