@@ -75,7 +75,7 @@ public class PDFConverter {
 		JPanel exportPanel = new JPanel();
 		exportPanel.add(new JLabel("<html><body>"+main.getLanguageFile().get("exportline1")+"<br><br>"+main.getLanguageFile().get("exportline2")+": </body></html>"));
 		String[] oriantations = new String[] {(String) main.getLanguageFile().get("exportoriantation1"), (String) main.getLanguageFile().get("exportoriantation2")};
-		JComboBox oriantation = new JComboBox(oriantations);
+		JComboBox<?> oriantation = new JComboBox<String>(oriantations);
 		exportPanel.add(oriantation);
 		
 		options[0] = JOptionPane.showConfirmDialog(main.getGui(), exportPanel, (String) main.getLanguageFile().get("exportline1"), JOptionPane.OK_CANCEL_OPTION);
