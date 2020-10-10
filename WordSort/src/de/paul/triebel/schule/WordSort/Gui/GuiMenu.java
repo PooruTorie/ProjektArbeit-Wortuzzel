@@ -9,7 +9,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import de.paul.triebel.schule.WordSort.main;
-import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 import de.paul.triebel.schule.WordSort.Gui.Options.Options;
 
 public class GuiMenu extends JMenuBar {

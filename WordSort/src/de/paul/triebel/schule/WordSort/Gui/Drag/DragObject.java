@@ -14,11 +14,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 
-import javax.crypto.SecretKeyFactorySpi;
 import javax.swing.JLabel;
 
 import de.paul.triebel.schule.WordSort.main;
-import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 import de.paul.triebel.schule.WordSort.Gui.RightClick.RightClickMenu;
 import de.paul.triebel.schule.WordSort.Utils.MathUtils;
 

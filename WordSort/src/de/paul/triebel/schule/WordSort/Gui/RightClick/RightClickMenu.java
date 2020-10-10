@@ -3,7 +3,6 @@ package de.paul.triebel.schule.WordSort.Gui.RightClick;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -15,7 +14,6 @@ public class RightClickMenu extends JPopupMenu {
 	public RightClickMenu(DragObject o) {
 		super();
 		
-		JMenuItem i1 = new JMenuItem("123");
 		JMenuItem i2 = new JMenuItem((String) main.getLanguageFile().get("color"));
 		JMenuItem i3 = new JMenuItem((String) main.getLanguageFile().get("remove"));
 		

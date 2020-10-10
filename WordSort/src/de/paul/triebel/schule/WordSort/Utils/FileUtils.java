@@ -6,15 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
-import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 
 public class FileUtils {
 	

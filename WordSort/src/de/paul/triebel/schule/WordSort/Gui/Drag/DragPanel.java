@@ -1,20 +1,16 @@
 package de.paul.triebel.schule.WordSort.Gui.Drag;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.paul.triebel.schule.WordSort.main;

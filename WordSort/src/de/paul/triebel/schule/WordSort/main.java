@@ -12,7 +12,6 @@ import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 import de.paul.triebel.schule.WordSort.Gui.Gui;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
-import de.paul.triebel.schule.WordSort.Utils.MathUtils;
 
 public class main {
 	
