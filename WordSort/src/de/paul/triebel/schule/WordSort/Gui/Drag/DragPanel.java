@@ -20,8 +20,10 @@ import javax.swing.JPanel;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Data.Config;
 import de.paul.triebel.schule.WordSort.Gui.Gui;
+import de.paul.triebel.schule.WordSort.Gui.FileFilter.ExportFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.OpenFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.SaveFilter;
+import de.paul.triebel.schule.WordSort.PDF.PDFConverter;
 import de.paul.triebel.schule.WordSort.Utils.FileUtils;
 
 public class DragPanel extends JPanel {
@@ -174,6 +176,43 @@ public class DragPanel extends JPanel {
 	}
 
 	public void exportPDF() {
-		JOptionPane.showMessageDialog(main.getGui(), "Export PDF", "Error", JOptionPane.ERROR_MESSAGE);
+		JFileChooser save = new JFileChooser();
+		
+		String path = (String) main.getConfig().get(Config.EXPORTFOLDER);
+		if (path != null) {
+			save = new JFileChooser(new File(path));
+		}
+		
+		save.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		save.addChoosableFileFilter(new ExportFilter());
+		save.setAcceptAllFileFilterUsed(false);
+		
+		save.showSaveDialog(gui);
+		
+		File exportFile = save.getSelectedFile();
+		main.getConfig().saveExportFolder(save.getCurrentDirectory());
+		
+		if (exportFile != null) {
+			if (!exportFile.getName().contains(".pdf")) {
+				if (exportFile.getName().contains(".")) {
+					String[] nameTiles = exportFile.getName().replace('.', '#').split("#");
+					String name = "";
+					if (nameTiles.length > 1) {
+						for (String n : Arrays.copyOf(nameTiles, nameTiles.length-1)) {
+							name+=n;
+						}
+					} else {
+						name = nameTiles[0];
+					}
+					exportFile = new File(exportFile.getParent()+"/"+name+".pdf");
+				} else {
+					exportFile = new File(exportFile.getAbsolutePath()+".pdf");
+				}
+			}
+			
+			PDFConverter.toPDF(exportFile);
+		}
+		
+		repaint();
 	}
 }

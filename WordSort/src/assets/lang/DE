@@ -13,6 +13,12 @@
    "color": "Farbe Ändern",
    "remove": "Entfernen",
    
+   "exportline1": "Export Optionen",
+   "exportline2": "Seiten Ausrichtung",
+   "exportoriantation1": "Hochformat",
+   "exportoriantation2": "Querformat",
+   
    "openfilter": "Öffne Text oder Wortuzzel Dateien",
-   "savefilter": "Speicher Wortuzzel Datei"
+   "savefilter": "Speicher Wortuzzel Datei",
+   "exportfilter": "Export PDF Datei"
 }

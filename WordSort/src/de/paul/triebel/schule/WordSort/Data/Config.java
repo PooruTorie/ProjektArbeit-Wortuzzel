@@ -97,7 +97,8 @@ public class Config {
 	
 	public static String SAVEFOLDER = "save_folder";
 	public static String OPENFOLDER = "open_folder";
-
+	public static String EXPORTFOLDER = "export_folder";
+	
 	public void saveSaveFolder(File f) {
 		set(SAVEFOLDER, f.getAbsolutePath());
 		save();
@@ -105,6 +106,11 @@ public class Config {
 
 	public void saveOpenFolder(File f) {
 		set(OPENFOLDER, f.getAbsolutePath());
+		save();
+	}
+
+	public void saveExportFolder(File f) {
+		set(EXPORTFOLDER, f.getAbsolutePath());
 		save();
 	}
 

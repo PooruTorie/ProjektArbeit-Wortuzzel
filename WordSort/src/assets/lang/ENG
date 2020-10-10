@@ -13,6 +13,12 @@
    "color": "Change Color",
    "remove": "Remove",
    
+   "exportline1": "Export Options",
+   "exportline2": "Page Orientation",
+   "exportoriantation1": "Portrait",
+   "exportoriantation2": "Landscape",
+   
    "openfilter": "Open Text ore Wortuzzel Files",
-   "savefilter": "Save Wortuzzel File"
+   "savefilter": "Save Wortuzzel File",
+   "exportfilter": "Export PDF File"
 }
