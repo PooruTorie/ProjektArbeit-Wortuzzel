@@ -9,4 +9,8 @@ public class LanguageFile extends Config {
 		super(file);
 	}
 	
+	@Override
+	public String toString() {
+		return (String) get("language");
+	}
 }

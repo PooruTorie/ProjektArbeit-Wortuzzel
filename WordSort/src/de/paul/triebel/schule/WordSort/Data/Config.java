@@ -26,11 +26,6 @@ public class Config {
 		c = o;
 	}
 	
-	public void print(String name) {
-		System.out.println(name+": ");
-		System.out.println(c.toJSONString());
-	}
-	
 	@Override
 	public String toString() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();

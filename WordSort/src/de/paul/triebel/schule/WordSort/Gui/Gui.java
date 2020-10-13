@@ -36,4 +36,34 @@ public class Gui extends JFrame {
 		
 		requestFocus();
 	}
+
+	public Gui(DragPanel dragPanel) {
+		super(title);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		setFont(CustomFont.get(20));
+		setBackground(new Color(248, 241, 239));
+		
+		setSize(getGraphicsConfiguration().getBounds().getSize());
+		
+		setLayout(new BorderLayout());
+		
+		GuiMenu.update(this);
+		
+		inputField = new InputField(this);
+		add(inputField, BorderLayout.NORTH);
+		this.dragPanel = dragPanel;
+		add(dragPanel, BorderLayout.CENTER);
+		
+		setVisible(true);
+		
+		requestFocus();
+	}
+
+	public DragPanel close() {
+		setVisible(false);
+		dispose();
+		return dragPanel;
+	}
 }

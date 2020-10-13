@@ -3,6 +3,7 @@ package de.paul.triebel.schule.WordSort;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import assets.assets;
@@ -68,5 +69,27 @@ public class main {
 
 	public static Font getDragObjectFont() {
 		return CustomFont.get(FontSize);
+	}
+
+	public static LanguageFile[] getAllLanguageFiles() {
+		ArrayList<File> f = assets.getFolder("lang");
+		LanguageFile[] list = new LanguageFile[f.size()];
+		for (int i = 0; i < list.length; i++) {
+			try {
+				list[i] = new LanguageFile(f.get(i));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	public static void updateLanguage(LanguageFile lang) {
+		config.set("lang", lang.getFile().getName());
+		
+		main.lang = lang;
+		
+		DragPanel dragPanel = gui.close();
+		gui = new Gui(dragPanel);
 	}
 }

@@ -1,4 +1,6 @@
 {
+   "language": "English",
+   
    "file": "File",
    "new": "New",
    "open": "Open",
@@ -12,6 +14,9 @@
    
    "color": "Change Color",
    "remove": "Remove",
+   
+   "settingsfont": "Font Size",
+   "settingslanguage": "Language",
    
    "exportline1": "Export Options",
    "exportline2": "Page Orientation",

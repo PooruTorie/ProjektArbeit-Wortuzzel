@@ -1,4 +1,6 @@
 {
+   "language":"Deutsch",
+   
    "file": "Datei",
    "new": "Neu",
    "open": "Öffnen",
@@ -12,6 +14,9 @@
    
    "color": "Farbe Ändern",
    "remove": "Entfernen",
+   
+   "settingsfont": "Schriftgröße",
+   "settingslanguage": "Sprache",
    
    "exportline1": "Export Optionen",
    "exportline2": "Seiten Ausrichtung",

@@ -47,8 +47,6 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	public static Dimension getSize(String text) {
 		FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
 		Dimension size = font.getStringBounds(text, frc).getBounds().getSize();
-		System.out.println(font.getSize());
-		System.out.println(new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1, font.getSize())))));
 		return new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1, font.getSize()))));
 	}
 	

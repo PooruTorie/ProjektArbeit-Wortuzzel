@@ -2,7 +2,17 @@ package de.paul.triebel.schule.WordSort.Gui.Options;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import de.paul.triebel.schule.WordSort.main;
+import de.paul.triebel.schule.WordSort.Data.LanguageFile;
 
 public class Options {
 
@@ -23,38 +34,64 @@ public class Options {
 		
 		settings.setTitle((String) main.getLanguageFile().get("options"));
 		settings.setSize(screenSize.width/2, screenSize.height/2);
-		settings.setLayout(new CardLayout());
+		settings.setLayout(new BoxLayout(settings.getContentPane(), BoxLayout.PAGE_AXIS));
         
-		settings.add(getMenu("Font"));
-        
-		settings.setModal(true);
-		settings.setVisible(true);
-	}
-
-	private static JPanel getMenu(String label) {
-		JPanel menu = new JPanel();
-		JLabel JLabel = new JLabel();
-		final JSlider slider = new JSlider();
+		JPanel menuFont = new JPanel();
+		JLabel FontLabel = new JLabel();
+		final JSlider FontSlider = new JSlider();
 		
-		slider.setMinimum(20);
-		slider.setMaximum(50);
+		FontSlider.setMinimum(20);
+		FontSlider.setMaximum(50);
 		
-		slider.setValue((int) main.getFontSize());
+		FontSlider.setValue((int) main.getFontSize());
 		
-		slider.addChangeListener(new ChangeListener() {
+		FontSlider.addChangeListener(new ChangeListener() {
+			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JLabel.setText(label+": "+slider.getValue());
-				main.setFontSize(slider.getValue());
+				FontLabel.setText(main.getLanguageFile().get("settingsfont")+": "+FontSlider.getValue());
+				main.setFontSize(FontSlider.getValue());
 			}
 		});
 		
-		JLabel.setText(label+": "+slider.getValue());
+		FontLabel.setText(main.getLanguageFile().get("settingsfont")+": "+FontSlider.getValue());
 		
-		menu.add(JLabel);
-		menu.add(slider);
+		menuFont.add(FontLabel);
+		menuFont.add(FontSlider);
+		settings.add(menuFont);
 		
-		return menu;
+		JPanel menuLanguage = new JPanel();
+		JLabel LanguageLabel = new JLabel();
+		LanguageFile[] langs = main.getAllLanguageFiles();
+		final JComboBox<LanguageFile> LanguageDropDown = new JComboBox<>(langs);
+
+		int i = 0;
+		
+		for (LanguageFile l : langs) {
+			if (l.getFile().getName().equals(main.getLanguageFile().getFile().getName())) {
+				break;
+			}
+			i++;
+		}
+		
+		LanguageDropDown.setSelectedIndex(i);
+		
+		LanguageDropDown.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				main.updateLanguage((LanguageFile) LanguageDropDown.getSelectedItem());
+			}
+		});
+		
+		LanguageLabel.setText(main.getLanguageFile().get("settingslanguage")+": ");
+		
+		menuLanguage.add(LanguageLabel);
+		menuLanguage.add(LanguageDropDown);
+		settings.add(menuLanguage);
+        
+		settings.setModal(true);
+		settings.setVisible(true);
 	}
 
 }

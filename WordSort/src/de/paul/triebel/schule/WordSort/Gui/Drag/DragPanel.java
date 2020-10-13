@@ -163,7 +163,6 @@ public class DragPanel extends JPanel {
 	}
 
 	public static void updateFont() {
-		System.out.println(objects);
 		for (ArrayList<DragObject> arrayList : objects) {
 			for (DragObject o : arrayList) {
 				o.update();

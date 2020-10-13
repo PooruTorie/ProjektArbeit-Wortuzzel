@@ -15,7 +15,7 @@
 ::dAsiuh18IRvcCxnZtBJQ
 ::cRYluBh/LU+EWAnk
 ::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJhZksaHErSXA==
+::cxY6rQJ7JhzQF1fEqQJhZksaHUrWXA==
 ::ZQ05rAF9IBncCkqN+0xwdVsEAlTMbCXqZg==
 ::ZQ05rAF9IAHYFVzEqQIHJwlAWR6YOWfa
 ::eg0/rx1wNQPfEVWB+kM9LVsJDDONLm+JCacIpuL6/Yo=
@@ -23,7 +23,7 @@
 ::cRolqwZ3JBvQF1fEqQJQ
 ::dhA7uBVwLU+EWDk=
 ::YQ03rBFzNR3SWATElA==
-::dhAmsQZ3MwfNWATElA==
+::dhAmsQZ3MwfNWATE2WsESA==
 ::ZQ0/vhVqMQ3MEVWAtB9wSA==
 ::Zg8zqx1/OA3MEVWAtB9wSA==
 ::dhA7pRFwIByZRRnk
@@ -35,10 +35,8 @@
 echo off
 cls
 
-:InstallAndStart
+:RunProgramm
 cd %APPDATA%
-
-dir
 
 java -jar WordSort.jar %1
 
