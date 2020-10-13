@@ -1,10 +1,10 @@
 # ProjektArbeit-Wortuzzel
 
-##Install
+## Install
 Download the [Wortuzzel.exe](Wortuzzel.exe) and run it
 
-##Trello
-Trello(https://trello.com/b/H0Vxt4Ii/wortuzzel)
+## Trello
+[Trello](https://trello.com/b/H0Vxt4Ii/wortuzzel)
 
-##License
-License
+## License
+[License]()
