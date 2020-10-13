@@ -2,7 +2,13 @@ package de.paul.triebel.schule.WordSort.Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import assets.assets;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
 
@@ -17,6 +23,13 @@ public class Gui extends JFrame {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		try {
+			BufferedImage icon = ImageIO.read(assets.getFile("textures/icon.png"));
+			setIconImage(icon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		setFont(CustomFont.get(20));
 		setBackground(new Color(248, 241, 239));
