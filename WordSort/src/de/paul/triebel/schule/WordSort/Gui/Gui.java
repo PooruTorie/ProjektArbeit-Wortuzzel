@@ -34,6 +34,7 @@ public class Gui extends JFrame {
 		setFont(CustomFont.get(20));
 		setBackground(new Color(248, 241, 239));
 		
+		
 		setSize(getGraphicsConfiguration().getBounds().getSize());
 		
 		setLayout(new BorderLayout());
