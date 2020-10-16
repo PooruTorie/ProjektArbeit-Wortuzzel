@@ -15,6 +15,7 @@ import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.xml.ws.soap.AddressingFeature;
 
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.RightClick.RightClickMenu;
@@ -47,7 +48,7 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	public static Dimension getSize(String text) {
 		FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
 		Dimension size = font.getStringBounds(text, frc).getBounds().getSize();
-		return new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1, font.getSize()))));
+		return new Dimension(size.width+5, (int) (size.height*(MathUtils.remap(20, 50, 1.5f, 1.4f, font.getSize()))));
 	}
 	
 	@Override
@@ -85,7 +86,24 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 		int deltaX = e.getXOnScreen() - clickScreenOffset.x;
 		int deltaY = e.getYOnScreen() - clickScreenOffset.y;
 		
-		setLocation(lastPos.x + deltaX, lastPos.y + deltaY);
+		Point prePos = getLocation();
+		Point pos = new Point(lastPos.x + deltaX, lastPos.y + deltaY);
+		
+		boolean[] wh = ((DragPanel) getParent()).isInPanel(pos, getSize());
+		
+		if (wh[0] || wh[1]) {
+			if (wh[0]) {
+				pos.setLocation(prePos.x, pos.y);
+			}
+	
+			if (wh[1]) {
+				pos.setLocation(pos.x, prePos.y);
+			}
+		} else if (wh[0] && wh[1]) {
+			pos = prePos;
+		}
+		
+		setLocation(pos);
 		repaint();
     }
 	

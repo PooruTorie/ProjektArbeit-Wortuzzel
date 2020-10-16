@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.json.simple.JSONArray;
+
 import assets.assets;
 import de.paul.triebel.schule.WordSort.Data.Config;
 import de.paul.triebel.schule.WordSort.Data.LanguageFile;
@@ -72,11 +74,11 @@ public class main {
 	}
 
 	public static LanguageFile[] getAllLanguageFiles() {
-		ArrayList<File> f = assets.getFolder("lang");
+		JSONArray f = (JSONArray) config.get("lang_files");
 		LanguageFile[] list = new LanguageFile[f.size()];
 		for (int i = 0; i < list.length; i++) {
 			try {
-				list[i] = new LanguageFile(f.get(i));
+				list[i] = new LanguageFile(assets.getFile("lang/"+f.get(i)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

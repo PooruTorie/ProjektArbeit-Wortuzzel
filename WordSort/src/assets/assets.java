@@ -57,30 +57,5 @@ public class assets {
 			}
 		}
 	}
-
-	public static ArrayList<File> getFolder(String string) {
-		ArrayList<File> files = new ArrayList<>();
-		try {
-			URI uri = assets.class.getResource(string).toURI();
-			Path myPath;
-	        if (uri.getScheme().equals("jar")) {
-	            FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-	            myPath = fileSystem.getPath("/resources");
-	        } else {
-	            myPath = Paths.get(uri);
-	        }
-	        Stream<Path> walk = Files.walk(myPath, 1);
-	        for (Iterator<Path> it = walk.iterator(); it.hasNext();) {
-	        	File f = it.next().toFile();
-	        	if (!f.getName().equals(string)) {
-	        		files.add(f);
-	        	}
-	        }
-	        walk.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return files;
-	}
 	
 }

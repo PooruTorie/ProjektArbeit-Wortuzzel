@@ -2,6 +2,10 @@ package de.paul.triebel.schule.WordSort.Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -12,7 +16,7 @@ import assets.assets;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
 
-public class Gui extends JFrame {
+public class Gui extends JFrame implements ComponentListener {
 	
 	private final static String title = "Wortuzzel";
 	
@@ -48,6 +52,8 @@ public class Gui extends JFrame {
 		
 		setVisible(true);
 		
+		addComponentListener(this);
+		
 		requestFocus();
 	}
 
@@ -80,4 +86,18 @@ public class Gui extends JFrame {
 		dispose();
 		return dragPanel;
 	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		dragPanel.resizeComponents();
+	}
+	
+	@Override
+	public void componentHidden(ComponentEvent e) {}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {}
+
+	@Override
+	public void componentShown(ComponentEvent e) {}
 }

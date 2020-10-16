@@ -3,6 +3,7 @@ package de.paul.triebel.schule.WordSort.Gui.Drag;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.paul.triebel.schule.WordSort.main;
@@ -21,6 +24,7 @@ import de.paul.triebel.schule.WordSort.Gui.FileFilter.OpenFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.SaveFilter;
 import de.paul.triebel.schule.WordSort.PDF.PDFConverter;
 import de.paul.triebel.schule.WordSort.Utils.FileUtils;
+import de.paul.triebel.schule.WordSort.Utils.MathUtils;
 
 public class DragPanel extends JPanel {
 	
@@ -38,11 +42,18 @@ public class DragPanel extends JPanel {
 		setLayout(null);
 		
 		setBounds(0, (gui.getHeight()/8)+1, gui.getWidth(), gui.getHeight());
+		
+		oPSize = getBounds();
 	}
 	
-	public Point randomPos(Dimension size) {
+	public Point randomPos(String word, Dimension size) {
 		Random r = new Random();
-		return new Point((int) (r.nextInt((int) (getWidth()-(size.getWidth()*2)))+size.getWidth()), (int) (r.nextInt((int) (getHeight()-(size.getHeight()*2)))+size.getHeight()));
+		try {
+			return new Point((int) (r.nextInt((int) (getWidth()-(size.getWidth()*2)))+size.getWidth()), (int) (r.nextInt((int) (getHeight()-(size.getHeight()*2)))+size.getHeight()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(main.getGui(), ((String) main.getLanguageFile().get("longerror")).replace("%word%", "\""+word+"\""), "Error", JOptionPane.ERROR_MESSAGE);
+			return new Point();
+		}
 	}
 	
 	public void addLine(String text) {
@@ -52,13 +63,17 @@ public class DragPanel extends JPanel {
 		ArrayList<DragObject> wordObjects = new ArrayList<>();
 		for (String word : words) {
 			if (!word.equals("")) {
-				DragObject o = new DragObject(word, color, randomPos(DragObject.getSize(word)), objects.size());
+				DragObject o = new DragObject(word, color, randomPos(word, DragObject.getSize(word)), objects.size());
 				wordObjects.add(o);
 				add(o);
 			}
 		}
 		objects.add(wordObjects);
 		repaint();
+	}
+	
+	public boolean[] isInPanel(Point pos, Dimension size) {
+		return MathUtils.inside(new Rectangle(pos, size), new Rectangle(getSize()));
 	}
 
 	public void openSaveFile() {
@@ -209,5 +224,25 @@ public class DragPanel extends JPanel {
 		}
 		
 		repaint();
+	}
+	
+	Rectangle oPSize;
+
+	public void resizeComponents() {
+		Rectangle size = getBounds();
+		
+		for (ArrayList<DragObject> arrayList : objects) {
+			for (DragObject o : arrayList) {
+				Point oPos = o.getLocation();
+				Point nPos = new Point();
+				
+				nPos.x = (int) MathUtils.remap(oPSize.x, oPSize.width, size.x, size.width, oPos.x);
+				nPos.y = (int) MathUtils.remap(oPSize.y, oPSize.height, size.y, size.height, oPos.y);
+				
+				o.setLocation(nPos);
+			}
+		}
+		
+		oPSize = getBounds();
 	}
 }
