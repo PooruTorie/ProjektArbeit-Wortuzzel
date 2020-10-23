@@ -62,6 +62,13 @@ public class Gui extends JFrame implements ComponentListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
+		try {
+			BufferedImage icon = ImageIO.read(assets.getFile("textures/icon.png"));
+			setIconImage(icon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		setFont(CustomFont.get(20));
 		setBackground(new Color(248, 241, 239));
 		
@@ -77,6 +84,8 @@ public class Gui extends JFrame implements ComponentListener {
 		add(dragPanel, BorderLayout.CENTER);
 		
 		setVisible(true);
+		
+		addComponentListener(this);
 		
 		requestFocus();
 	}
