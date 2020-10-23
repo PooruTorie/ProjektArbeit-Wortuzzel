@@ -24,7 +24,6 @@ public class assets {
 		File file = new File(folder.getAbsolutePath()+"/"+string);
 		if (!file.exists()) {
 			InputStream in = assets.class.getResourceAsStream(string);
-			byte[] data = new byte[54576];
 			if (!folder.exists()) {
 				folder.mkdirs();
 			}
@@ -32,6 +31,7 @@ public class assets {
 				createParentFolder(file);
 				file.createNewFile();
 				
+				byte[] data = new byte[in.available()];
 				
 				FileOutputStream w = new FileOutputStream(file);
 				int size = in.read(data);

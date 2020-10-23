@@ -4,15 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import assets.assets;
+import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
 
@@ -50,6 +50,8 @@ public class Gui extends JFrame implements ComponentListener {
 		dragPanel = new DragPanel(this);
 		add(dragPanel, BorderLayout.CENTER);
 		
+		setupStartFrame();
+		
 		setVisible(true);
 		
 		addComponentListener(this);
@@ -85,9 +87,17 @@ public class Gui extends JFrame implements ComponentListener {
 		
 		setVisible(true);
 		
+		setupStartFrame();
+		
 		addComponentListener(this);
 		
 		requestFocus();
+	}
+
+	private void setupStartFrame() {
+		if ((boolean) main.getConfig().get("show_start_screen")) {
+			new StartScreen(this);
+		}
 	}
 
 	public DragPanel close() {
