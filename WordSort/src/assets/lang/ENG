@@ -6,9 +6,11 @@
    "open": "Open",
    "save": "Save",
    "export": "Export PDF",
+   "tutorial": "Tutorial",
    
    "view": "Style",
    "options": "Options",
+   "help": "Help",
    
    "input": "Put here your text in:",
    

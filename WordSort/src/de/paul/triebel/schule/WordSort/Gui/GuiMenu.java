@@ -1,13 +1,16 @@
 package de.paul.triebel.schule.WordSort.Gui;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import assets.assets;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Options.Options;
 
@@ -26,6 +29,7 @@ public class GuiMenu extends JMenuBar {
 		
 		add(GuiMenu.get("file"));
 		add(GuiMenu.get("view"));
+		add(GuiMenu.get("help"));
 	}
 	
 	private static JMenu get(String st) {
@@ -84,6 +88,19 @@ public class GuiMenu extends JMenuBar {
 				@Override
 				public void run() {
 					Options.open();
+				}
+			}));
+			break;
+		case "help":
+			menus.add(createMenuItem((String) main.getLanguageFile().get("tutorial"), new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						Desktop.getDesktop().open(assets.getFile("video.mp4"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}));
 			break;

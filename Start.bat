@@ -39,5 +39,3 @@ cls
 cd %APPDATA%
 
 java -jar WordSort.jar %1
-
-exit

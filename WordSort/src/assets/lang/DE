@@ -6,10 +6,12 @@
    "open": "Öffnen",
    "save": "Speichern",
    "export": "PDF Exportieren",
+   "tutorial": "Einleitung",
    
    "view": "Ansicht",
    "options": "Einstellungen",
-   
+   "help": "Hilfe",
+      
    "input": "Geben sie hier ihren Text ein:",
    
    "color": "Farbe Ändern",
