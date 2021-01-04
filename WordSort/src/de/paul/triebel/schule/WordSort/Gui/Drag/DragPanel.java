@@ -22,6 +22,7 @@ import de.paul.triebel.schule.WordSort.Gui.Gui;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.ExportFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.OpenFilter;
 import de.paul.triebel.schule.WordSort.Gui.FileFilter.SaveFilter;
+import de.paul.triebel.schule.WordSort.Gui.Input.Exceptions.toLongWordException;
 import de.paul.triebel.schule.WordSort.PDF.PDFConverter;
 import de.paul.triebel.schule.WordSort.Utils.FileUtils;
 import de.paul.triebel.schule.WordSort.Utils.MathUtils;
@@ -46,13 +47,12 @@ public class DragPanel extends JPanel {
 		oPSize = getBounds();
 	}
 	
-	public Point randomPos(String word, Dimension size) {
+	public Point randomPos(String word, Dimension size) throws toLongWordException {
 		Random r = new Random();
 		try {
 			return new Point((int) (r.nextInt((int) (getWidth()-(size.getWidth()*2)))+size.getWidth()), (int) (r.nextInt((int) (getHeight()-(size.getHeight()*2)))+size.getHeight()));
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(main.getGui(), ((String) main.getLanguageFile().get("longerror")).replace("%word%", "\""+word+"\""), "Error", JOptionPane.ERROR_MESSAGE);
-			return new Point();
+			throw new toLongWordException(word);
 		}
 	}
 	
@@ -63,9 +63,14 @@ public class DragPanel extends JPanel {
 		ArrayList<DragObject> wordObjects = new ArrayList<>();
 		for (String word : words) {
 			if (!word.equals("")) {
-				DragObject o = new DragObject(word, color, randomPos(word, DragObject.getSize(word)), objects.size());
-				wordObjects.add(o);
-				add(o);
+				DragObject o;
+				try {
+					o = new DragObject(word, color, randomPos(word, DragObject.getSize(word)), objects.size());
+					wordObjects.add(o);
+					add(o);
+				} catch (toLongWordException e) {
+					JOptionPane.showMessageDialog(main.getGui(), ((String) main.getLanguageFile().get("longerror")).replace("%word%", "\""+e.getWord()+"\""), "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 		objects.add(wordObjects);
@@ -108,6 +113,13 @@ public class DragPanel extends JPanel {
 					saveFile = new File(saveFile.getParent()+"/"+name+".wuzz");
 				} else {
 					saveFile = new File(saveFile.getAbsolutePath()+".wuzz");
+				}
+			}
+			
+			if (saveFile.exists()) {
+				int status = JOptionPane.showConfirmDialog(main.getGui(), (String) main.getLanguageFile().get("override"), (String) main.getLanguageFile().get("override"), JOptionPane.WARNING_MESSAGE);
+				if (status == JOptionPane.CANCEL_OPTION) {
+					return;
 				}
 			}
 			
@@ -220,6 +232,13 @@ public class DragPanel extends JPanel {
 				}
 			}
 			
+			if (exportFile.exists()) {
+				int status = JOptionPane.showConfirmDialog(main.getGui(), (String) main.getLanguageFile().get("override"), (String) main.getLanguageFile().get("override"), JOptionPane.WARNING_MESSAGE);
+				if (status == JOptionPane.CANCEL_OPTION) {
+					return;
+				}
+			}
+			
 			PDFConverter.toPDF(exportFile);
 		}
 		
@@ -236,8 +255,8 @@ public class DragPanel extends JPanel {
 				Point oPos = o.getLocation();
 				Point nPos = new Point();
 				
-				nPos.x = (int) MathUtils.remap(oPSize.x, oPSize.width, size.x, size.width, oPos.x);
-				nPos.y = (int) MathUtils.remap(oPSize.y, oPSize.height, size.y, size.height, oPos.y);
+				nPos.x = (int) MathUtils.clamp(0, size.width, MathUtils.remap(oPSize.x, oPSize.width, size.x, size.width, oPos.x));
+				nPos.y = (int) MathUtils.clamp(0, size.height, MathUtils.remap(oPSize.y, oPSize.height, size.y, size.height, oPos.y));
 				
 				o.setLocation(nPos);
 			}

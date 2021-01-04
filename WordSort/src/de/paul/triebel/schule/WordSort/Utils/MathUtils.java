@@ -22,5 +22,9 @@ public class MathUtils {
 		
 		return new boolean[] {width, height};
 	}
+
+	public static float clamp(float min, float max, float value) {
+		return Math.max(min, Math.min(max, value));
+	}
 	
 }

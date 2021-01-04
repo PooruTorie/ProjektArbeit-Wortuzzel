@@ -1,6 +1,7 @@
 package de.paul.triebel.schule.WordSort.Utils;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileReader;
@@ -33,9 +34,9 @@ public class FileUtils {
 					out.write(0);
 					out.write(""+i);
 					out.write(0);
-					out.write(""+o.getX());
+					out.write(""+MathUtils.remap(0, main.getGui().dragPanel.getSize().width+(o.getSize().width/2), 0, 100, o.getX()));
 					out.write(0);
-					out.write(""+o.getY());
+					out.write(""+MathUtils.remap(0, main.getGui().dragPanel.getSize().height+(o.getSize().height/2), 0, 100, o.getY()));
 					out.write(0);
 					out.write(""+o.getBackground().getRGB());
 					out.write(0);
@@ -70,18 +71,24 @@ public class FileUtils {
 				if (startByte == 13) {
 					byte[] text = getnextBytes(data);
 					int index = Integer.parseInt(new String(getnextBytes(data)));
-					byte[] x = getnextBytes(data);
-					byte[] y = getnextBytes(data);
+					byte[] xV = getnextBytes(data);
+					byte[] yV = getnextBytes(data);
 					byte[] rgb = getnextBytes(data);
 					
-					Point pos = new Point(Integer.parseInt(new String(x)), Integer.parseInt(new String(y)));
+					Dimension size = DragObject.getSize(" "+text+" ");
+					
+					int x = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().width+(size.width/2), Float.parseFloat(new String(xV)));
+					int y = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().height+(size.height/2), Float.parseFloat(new String(yV)));
+					
+					Point pos = new Point(x, y);
 					
 					ArrayList<DragObject> wos = new ArrayList<>();
 					try {
 						wos = os.get(index);
 					} catch (Exception e) {}
 					
-					wos.add(new DragObject(new String(text), new Color(Integer.parseInt(new String(rgb))), pos, index));
+					DragObject o = new DragObject(new String(text), new Color(Integer.parseInt(new String(rgb))), pos, index);
+					wos.add(o);
 					
 					try {
 						os.set(index, wos);
