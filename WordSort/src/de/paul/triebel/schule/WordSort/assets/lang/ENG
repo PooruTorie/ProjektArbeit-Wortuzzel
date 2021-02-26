@@ -8,6 +8,8 @@
    "export": "Export PDF",
    "tutorial": "Tutorial",
    
+   "override": "Do you want to override the file?",
+   
    "view": "Style",
    "options": "Options",
    "help": "Help",

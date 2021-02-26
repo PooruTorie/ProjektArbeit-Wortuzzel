@@ -27,6 +27,7 @@ public class main {
 		System.out.println(Arrays.toString(args));
 		
 		try {
+			System.out.println(Runtime.getRuntime());
 			config = new Config(assets.getFile("config.ini"));
 			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));
 			gui = new Gui();
@@ -35,11 +36,16 @@ public class main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		while (true) {
+			
+		}
 	}
 
 	private static void testOpenFile(String[] args) {
 		if (args.length != 0) {
 			File f = new File(args[0]);
+			System.out.println(f);
 			if (f.exists()) {
 				gui.dragPanel.openFromFile(f);
 			}

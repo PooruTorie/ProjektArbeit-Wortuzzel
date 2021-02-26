@@ -8,6 +8,8 @@
    "export": "PDF Exportieren",
    "tutorial": "Einleitung",
    
+   "override": "Möchten sie die Datei überschreiben?",
+   
    "view": "Ansicht",
    "options": "Einstellungen",
    "help": "Hilfe",
