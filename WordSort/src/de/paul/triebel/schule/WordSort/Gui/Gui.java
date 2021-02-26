@@ -11,10 +11,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import assets.assets;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
+import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class Gui extends JFrame implements ComponentListener {
 	

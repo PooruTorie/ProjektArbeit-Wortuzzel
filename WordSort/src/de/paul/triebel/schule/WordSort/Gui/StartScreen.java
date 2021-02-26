@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import assets.assets;
 import de.paul.triebel.schule.WordSort.main;
+import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class StartScreen extends JDialog implements MouseListener {
 	
@@ -48,7 +48,7 @@ public class StartScreen extends JDialog implements MouseListener {
 		setLayout(new GridLayout(0, 1));
 		
 		JPanel textPanel = new JPanel();
-		JLabel l = new JLabel("Tutorial");
+		JLabel l = new JLabel((String) main.getLanguageFile().get("tutorial"));
 		l.setFont(CustomFont.get(main.getFontSize()*4));
 		textPanel.add(l);
 		add(textPanel);

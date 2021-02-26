@@ -1,0 +1,33 @@
+{
+   "language": "English",
+   
+   "file": "File",
+   "new": "New",
+   "open": "Open",
+   "save": "Save",
+   "export": "Export PDF",
+   "tutorial": "Tutorial",
+   
+   "view": "Style",
+   "options": "Options",
+   "help": "Help",
+   
+   "input": "Put here your text in:",
+   
+   "color": "Change Color",
+   "remove": "Remove",
+   
+   "longerror": "The Word %word% is to Long",
+   
+   "settingsfont": "Font Size",
+   "settingslanguage": "Language",
+   
+   "exportline1": "Export Options",
+   "exportline2": "Page Orientation",
+   "exportoriantation1": "Portrait",
+   "exportoriantation2": "Landscape",
+   
+   "openfilter": "Open Text ore Wortuzzel Files",
+   "savefilter": "Save Wortuzzel File",
+   "exportfilter": "Export PDF File"
+}

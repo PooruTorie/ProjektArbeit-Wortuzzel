@@ -8,13 +8,13 @@ import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 
-import assets.assets;
 import de.paul.triebel.schule.WordSort.Data.Config;
 import de.paul.triebel.schule.WordSort.Data.LanguageFile;
 import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 import de.paul.triebel.schule.WordSort.Gui.Gui;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
+import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	

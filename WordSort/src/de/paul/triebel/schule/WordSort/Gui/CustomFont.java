@@ -1,7 +1,8 @@
 package de.paul.triebel.schule.WordSort.Gui;
 
 import java.awt.Font;
-import assets.assets;
+
+import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class CustomFont {
 
