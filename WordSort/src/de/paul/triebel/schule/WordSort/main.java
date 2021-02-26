@@ -36,10 +36,6 @@ public class main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		while (true) {
-			
-		}
 	}
 
 	private static void testOpenFile(String[] args) {
