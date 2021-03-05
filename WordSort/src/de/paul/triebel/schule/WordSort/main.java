@@ -2,20 +2,15 @@ package de.paul.triebel.schule.WordSort;
 
 import java.awt.Desktop;
 import java.awt.Font;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import org.json.simple.JSONArray;
@@ -30,7 +25,7 @@ import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	
-	private static final String VERSION = "1.1";
+	private static final String VERSION = "1.0";
 	
 	private static Config config;
 	private static Gui gui;
