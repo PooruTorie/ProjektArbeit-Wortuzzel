@@ -13,6 +13,10 @@ Section "Install"
 	File src\wortuzzel.jar
 	File src\Wortuzzel.exe
 	
+	Delete $APPDATA\Wortuzzel\lang\DE
+	Delete $APPDATA\Wortuzzel\lang\ENG
+	Delete $APPDATA\Wortuzzel\config.ini
+	
 	${registerExtension} "$INSTDIR\Wortuzzel.exe" ".wuzz" "Wortuzzel File"
 	
 	WriteUninstaller $INSTDIR\uninstall.exe
