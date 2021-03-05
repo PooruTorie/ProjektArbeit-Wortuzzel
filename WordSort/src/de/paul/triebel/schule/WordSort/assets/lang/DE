@@ -1,6 +1,8 @@
 {
    "language":"Deutsch",
    
+   "versionnewer": "Es gibt eine Neuere Version",
+   
    "file": "Datei",
    "new": "Neu",
    "open": "Öffnen",

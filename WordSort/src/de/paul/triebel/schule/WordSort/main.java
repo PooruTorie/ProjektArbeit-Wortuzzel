@@ -1,10 +1,22 @@
 package de.paul.triebel.schule.WordSort;
 
+import java.awt.Desktop;
 import java.awt.Font;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import org.json.simple.JSONArray;
 
@@ -18,6 +30,8 @@ import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	
+	private static final String VERSION = "1.1";
+	
 	private static Config config;
 	private static Gui gui;
 	private static LanguageFile lang;
@@ -27,13 +41,34 @@ public class main {
 		System.out.println(Arrays.toString(args));
 		
 		try {
-			System.out.println(Runtime.getRuntime());
 			config = new Config(assets.getFile("config.ini"));
 			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));
 			gui = new Gui();
 			
+			testUpdate();
+			
 			testOpenFile(args);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testUpdate() {
+		try {
+			URL u = new URL("https://nutellajunge.github.io/ProjektArbeit-Wortuzzel/");
+			URLConnection c = u.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
+			Config json = new Config(in.readLine());
+			String version = (String) json.get("version");
+			int newestVersion = Integer.parseInt(version.replace(".", ""));
+			int currentVersion = Integer.parseInt(VERSION.replace(".", ""));
+			if (newestVersion > currentVersion) {
+				int status = JOptionPane.showConfirmDialog(main.getGui(), (String) main.getLanguageFile().get("versionnewer")+"\nLink: "+json.get("link"), (String) main.getLanguageFile().get("versionnewer"), JOptionPane.ERROR_MESSAGE);
+				if (status == JOptionPane.OK_OPTION) {
+					Desktop.getDesktop().browse(new URI((String) json.get("link")));
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
