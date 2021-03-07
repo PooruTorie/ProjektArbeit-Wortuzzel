@@ -5,8 +5,13 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -153,7 +158,7 @@ public class DragPanel extends JPanel {
 			
 			if (extension.equals("txt")) {
 				try {
-					BufferedReader r = new BufferedReader(new FileReader(openFile));
+					BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(openFile), "UTF-8"));;
 					
 					while (r.ready()) {
 						addLine(r.readLine());

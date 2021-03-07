@@ -41,7 +41,7 @@ public class PDFConverter {
 				PDPageContentStream cont = new PDPageContentStream(doc, page);
 	            
 				Dimension imgSize = main.getGui().dragPanel.getSize();
-	            BufferedImage img = new BufferedImage(imgSize.width, imgSize.height, BufferedImage.TYPE_INT_ARGB);
+	            BufferedImage img = new BufferedImage(imgSize.width, imgSize.height, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 	            
 	            Graphics g = img.getGraphics();
 	            main.getGui().dragPanel.paintComponents(g);
@@ -49,7 +49,7 @@ public class PDFConverter {
 	            img = rotate(img, page.getRotation()*-1);
 	            img = resize(img, new Dimension((int) page.getArtBox().getWidth(), (int) page.getArtBox().getHeight()), options[1] == 1);
 	            
-	            cont.drawImage(JPEGFactory.createFromImage(doc, img), 0, 0);
+	            cont.drawImage(JPEGFactory.createFromImage(doc, img, 1f, 200000), 0, 0);
 	            
 	            cont.close();
 	            
@@ -89,8 +89,7 @@ public class PDFConverter {
 		}
 	    BufferedImage dimg = new BufferedImage(newSize.width, newSize.height, img.getType());  
 	    Graphics2D g = dimg.createGraphics();
-	    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-	    RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
+	    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 	    g.drawImage(img, 0, 0, newSize.width, newSize.height, 0, 0, w, h, null);  
 	    g.dispose();  
 	    return dimg;  
@@ -105,7 +104,7 @@ public class PDFConverter {
         int newWidth = (int) Math.floor(w * cos + h * sin);
         int newHeight = (int) Math.floor(h * cos + w * sin);
 
-        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, img.getType());
         Graphics2D g2d = rotated.createGraphics();
         AffineTransform at = new AffineTransform();
         at.translate((newWidth - w) / 2, (newHeight - h) / 2);

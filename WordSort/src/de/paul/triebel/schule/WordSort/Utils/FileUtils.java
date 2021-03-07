@@ -3,9 +3,17 @@ package de.paul.triebel.schule.WordSort.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,7 +32,7 @@ public class FileUtils {
 
 	public static void compileToFile(File saveFile, ArrayList<ArrayList<DragObject>> objects) {
 		try {
-			FileWriter out = new FileWriter(saveFile);
+			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), "UTF-8"));
 			
 			for (int i = 0; i < objects.size(); i++) {
 				for (DragObject o : objects.get(i)) {
@@ -54,7 +62,7 @@ public class FileUtils {
 	
 	public static ArrayList<ArrayList<DragObject>> compileFromFile(File openFile) {
 		try {
-			FileReader r = new FileReader(openFile);
+			BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(openFile), "UTF-8"));
 			ArrayList<Byte> d = new ArrayList<>();
 			
 			while (r.ready()) {
