@@ -2,14 +2,19 @@ package de.paul.triebel.schule.WordSort.Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
@@ -22,6 +27,8 @@ public class Gui extends JFrame implements ComponentListener {
 	
 	public DragPanel dragPanel;
 	public InputField inputField;
+
+	private JPanel version;
 	
 	public Gui() {
 		super(title);
@@ -49,6 +56,17 @@ public class Gui extends JFrame implements ComponentListener {
 		add(inputField, BorderLayout.NORTH);
 		dragPanel = new DragPanel(this);
 		add(dragPanel, BorderLayout.CENTER);
+		
+		version = new JPanel();
+		version.setLayout(new BorderLayout());
+		JLabel v = new JLabel("   Version: "+main.VERSION);
+		v.setFont(CustomFont.get(30));
+		version.add(v , BorderLayout.LINE_START);
+		JLabel c = new JLabel("Creator: Paul Triebel   ");
+		c.setFont(CustomFont.get(30));
+		version.add(c , BorderLayout.LINE_END);
+		version.setBackground(inputField.getBackground());
+		add(version, BorderLayout.PAGE_END);
 		
 		setupStartFrame();
 		
@@ -84,6 +102,17 @@ public class Gui extends JFrame implements ComponentListener {
 		add(inputField, BorderLayout.NORTH);
 		this.dragPanel = dragPanel;
 		add(dragPanel, BorderLayout.CENTER);
+		
+		version = new JPanel();
+		version.setLayout(new BorderLayout());
+		JLabel v = new JLabel("   Version: "+main.VERSION);
+		v.setFont(CustomFont.get(30));
+		version.add(v , BorderLayout.LINE_START);
+		JLabel c = new JLabel("Creator: Paul Triebel   ");
+		c.setFont(CustomFont.get(30));
+		version.add(c , BorderLayout.LINE_END);
+		version.setBackground(inputField.getBackground());
+		add(version, BorderLayout.PAGE_END);
 		
 		setVisible(true);
 		

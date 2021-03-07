@@ -27,7 +27,7 @@ import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	
-	private static final String VERSION = "1.2";
+	public static final String VERSION = "1.2";
 	
 	private static Config config;
 	private static Gui gui;
