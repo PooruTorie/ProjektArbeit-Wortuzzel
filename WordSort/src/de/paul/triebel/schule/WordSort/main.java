@@ -11,7 +11,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import org.json.simple.JSONArray;
 
@@ -25,7 +27,7 @@ import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	
-	private static final String VERSION = "1.0";
+	private static final String VERSION = "1.2";
 	
 	private static Config config;
 	private static Gui gui;
@@ -58,7 +60,10 @@ public class main {
 			int newestVersion = Integer.parseInt(version.replace(".", ""));
 			int currentVersion = Integer.parseInt(VERSION.replace(".", ""));
 			if (newestVersion > currentVersion) {
-				int status = JOptionPane.showConfirmDialog(main.getGui(), (String) main.getLanguageFile().get("versionnewer")+"\nLink: "+json.get("link"), (String) main.getLanguageFile().get("versionnewer"), JOptionPane.ERROR_MESSAGE);
+				JPanel panel = new JPanel();
+				panel.add(new JLabel("<html>"+main.getLanguageFile().get("versionnewer")+"<br>Link: "));
+				panel.add(new JLink(version+" Update", new URI((String) json.get("link"))));
+				int status = JOptionPane.showConfirmDialog(main.getGui(), panel, (String) main.getLanguageFile().get("versionnewer"), JOptionPane.ERROR_MESSAGE);
 				if (status == JOptionPane.OK_OPTION) {
 					Desktop.getDesktop().browse(new URI((String) json.get("link")));
 				}

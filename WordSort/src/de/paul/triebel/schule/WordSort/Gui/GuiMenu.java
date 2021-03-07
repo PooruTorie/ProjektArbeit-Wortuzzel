@@ -1,15 +1,27 @@
 package de.paul.triebel.schule.WordSort.Gui;
 
+import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
+import de.paul.triebel.schule.WordSort.JLink;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Options.Options;
 import de.paul.triebel.schule.WordSort.assets.assets;
@@ -92,17 +104,91 @@ public class GuiMenu extends JMenuBar {
 			}));
 			break;
 		case "help":
-			menus.add(createMenuItem((String) main.getLanguageFile().get("tutorial"), new Runnable() {
+			menu.addMouseListener(new MouseListener() {
 				
 				@Override
-				public void run() {
+				public void mouseReleased(MouseEvent e) {}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					JDialog d = new JDialog(main.getGui(), (String) main.getLanguageFile().get("help"));
+					d.setFont(CustomFont.get(10));
+					d.setSize(400, 280);
+					d.setLayout(new GridLayout(0, 2));
+					
+					JPanel textPanel = new JPanel();
+					JLabel l = new JLabel((String) main.getLanguageFile().get("tutorial"));
+					l.setFont(CustomFont.get(main.getFontSize()));
+					textPanel.add(l);
+					d.add(textPanel);
+					
 					try {
-						Desktop.getDesktop().open(assets.getFile("video.mp4"));
-					} catch (IOException e1) {
+						ImageIcon icon = new ImageIcon(ImageIO.read(assets.getFile("textures/video.png")));
+						ImageIcon iconSelected = new ImageIcon(ImageIO.read(assets.getFile("textures/videoSelected.png")));
+						
+						JButton play = new JButton(icon);
+						
+						play.setBackground(new Color(0, 0, 0, 0));
+						play.setOpaque(false);
+						play.setContentAreaFilled(false);
+						play.setBorderPainted(false);
+						play.setFocusPainted(false);
+						
+						play.addMouseListener(new MouseListener() {
+							
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								play.setIcon(iconSelected);
+								d.repaint();
+							}
+
+							@Override
+							public void mouseExited(MouseEvent e) {
+								play.setIcon(icon);
+								d.repaint();
+							}
+
+							@Override
+							public void mouseClicked(MouseEvent e) {}
+
+							@Override
+							public void mousePressed(MouseEvent e) {}
+
+							@Override
+							public void mouseReleased(MouseEvent e) {}
+						});
+						
+						play.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								try {
+									Desktop.getDesktop().open(assets.getFile("video.mp4"));
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+							}
+						});
+						textPanel.add(play);
+						
+						JLink link = new JLink("Haben sie Fragen oder Fehler?", new URI("https://github.com/NutellaJunge/ProjektArbeit-Wortuzzel/issues"));
+						d.add(link);
+						
+						d.setVisible(true);
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}
-			}));
+			});
 			break;
 		}
 		return menus;
