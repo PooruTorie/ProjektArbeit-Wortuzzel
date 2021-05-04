@@ -16,7 +16,6 @@ Section "Install"
 	Delete $APPDATA\Wortuzzel\lang\DE
 	Delete $APPDATA\Wortuzzel\lang\ENG
 	Delete $APPDATA\Wortuzzel\config.ini
-	Delete $APPDATA\Wortuzzel\video.mp4
 	
 	${registerExtension} "$INSTDIR\Wortuzzel.exe" ".wuzz" "Wortuzzel File"
 	

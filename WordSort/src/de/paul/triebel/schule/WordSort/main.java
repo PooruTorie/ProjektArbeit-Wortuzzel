@@ -27,7 +27,12 @@ import de.paul.triebel.schule.WordSort.assets.assets;
 
 public class main {
 	
-	public static final String VERSION = "1.2";
+	public static final String VERSION = "1.3";
+	public static final String[] log = new String[] {
+			"Weiße Schriftfarbe bei dunklem Hintergrund",
+			"Mann kann mit Linksklick gedrückt mehrere Wörter auswählen",
+			"Mann kann Mehrere ausgewählte Wörter im Rechtsklickmenü verbinden"
+	};
 	
 	private static Config config;
 	private static Gui gui;
@@ -69,7 +74,7 @@ public class main {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

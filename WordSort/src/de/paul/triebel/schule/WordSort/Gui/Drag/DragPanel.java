@@ -1,9 +1,17 @@
 package de.paul.triebel.schule.WordSort.Gui.Drag;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JDialog;
@@ -36,7 +45,9 @@ public class DragPanel extends JPanel {
 	
 	public Gui gui;
 	
-	public static ArrayList<ArrayList<DragObject>> objects = new ArrayList<>();
+	public static ArrayList<ArrayList<DragObject>> words = new ArrayList<>();
+	
+	public ArrayList<DragObject> selected = new ArrayList<>();
 	
 	public DragPanel(Gui gui) {
 		super();
@@ -49,7 +60,90 @@ public class DragPanel extends JPanel {
 		
 		setBounds(0, (gui.getHeight()/8)+1, gui.getWidth(), gui.getHeight());
 		
+		addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+				dragEnd = new Point(x, y);
+				select(dragStart, dragEnd);
+				repaint();
+			}
+		});
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+				dragStart = new Point(x, y);
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				dragStart = null;
+				dragEnd = null;
+				repaint();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				select(dragStart, dragEnd);
+				repaint();
+			}
+		});
+		
 		oPSize = getBounds();
+	}
+	
+	public void select(Point start, Point end) {
+		for (ArrayList<DragObject> arrayList : words) {
+			for (DragObject o : arrayList) {
+				if (start != null && end != null) {
+					if (new Rectangle(start.x, start.y, end.x-start.x, end.y-start.y).contains(o.getBounds())) {
+						if (!selected.contains(o)) {
+							o.selected(true);
+							selected.add(o);
+						}
+					} else {
+						if (selected.contains(o)) {
+							o.selected(false);
+							selected.remove(o);
+						}
+					}
+				} else {
+					if (selected.contains(o)) {
+						o.selected(false);
+						selected.remove(o);
+					}
+				}
+			}
+		}
+	}
+	
+	public Point dragEnd, dragStart;
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		if (dragStart != null && dragEnd != null) {
+			g2.setColor(new Color(204, 208, 255, 100));
+			g2.fillRect(dragStart.x, dragStart.y, dragEnd.x-dragStart.x, dragEnd.y-dragStart.y);
+		}
 	}
 	
 	public Point randomPos(String word, Dimension size) throws toLongWordException {
@@ -64,21 +158,21 @@ public class DragPanel extends JPanel {
 	public void addLine(String text) {
 		Random cr = new Random();
 		Color color = new Color(cr.nextInt(155)+100, cr.nextInt(155)+100, cr.nextInt(155)+100);
-		String[] words = text.split(" ");
-		ArrayList<DragObject> wordObjects = new ArrayList<>();
-		for (String word : words) {
+		String[] wordsString = text.split(" ");
+		ArrayList<DragObject> wordwords = new ArrayList<>();
+		for (String word : wordsString) {
 			if (!word.equals("")) {
 				DragObject o;
 				try {
-					o = new DragObject(word, color, randomPos(word, DragObject.getSize(word)), objects.size());
-					wordObjects.add(o);
+					o = new DragObject(word, color, randomPos(word, DragObject.getSize(word)), words.size());
+					wordwords.add(o);
 					add(o);
 				} catch (toLongWordException e) {
 					JOptionPane.showMessageDialog(main.getGui(), ((String) main.getLanguageFile().get("longerror")).replace("%word%", "\""+e.getWord()+"\""), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
-		objects.add(wordObjects);
+		words.add(wordwords);
 		repaint();
 	}
 	
@@ -128,7 +222,7 @@ public class DragPanel extends JPanel {
 				}
 			}
 			
-			FileUtils.compileToFile(saveFile, objects);
+			FileUtils.compileToFile(saveFile, words);
 		}
 		
 		repaint();
@@ -171,9 +265,9 @@ public class DragPanel extends JPanel {
 			} else if (extension.equals("wuzz")) {
 				clear();
 				
-				objects = FileUtils.compileFromFile(openFile);
+				words = FileUtils.compileFromFile(openFile);
 				
-				for (ArrayList<DragObject> o : objects) {
+				for (ArrayList<DragObject> o : words) {
 					for (DragObject dragObject : o) {
 						add(dragObject);	
 					}
@@ -185,17 +279,17 @@ public class DragPanel extends JPanel {
 	}
 
 	public void clear() {
-		for (ArrayList<DragObject> o : objects) {
+		for (ArrayList<DragObject> o : words) {
 			for (DragObject dragObject : o) {
 				remove(dragObject);	
 			}
 		}
-		objects.clear();
+		words.clear();
 		repaint();
 	}
 
 	public static void updateFont() {
-		for (ArrayList<DragObject> arrayList : objects) {
+		for (ArrayList<DragObject> arrayList : words) {
 			for (DragObject o : arrayList) {
 				o.update();
 			}
@@ -255,7 +349,7 @@ public class DragPanel extends JPanel {
 	public void resizeComponents() {
 		Rectangle size = getBounds();
 		
-		for (ArrayList<DragObject> arrayList : objects) {
+		for (ArrayList<DragObject> arrayList : words) {
 			for (DragObject o : arrayList) {
 				Point oPos = o.getLocation();
 				Point nPos = new Point();
@@ -268,5 +362,13 @@ public class DragPanel extends JPanel {
 		}
 		
 		oPSize = getBounds();
+	}
+
+	public void clearSelected() {
+		for (DragObject o : selected) {
+			o.selected(false);
+		}
+		selected.clear();
+		System.out.println(selected);
 	}
 }

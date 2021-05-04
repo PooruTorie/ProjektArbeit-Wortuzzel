@@ -1,8 +1,8 @@
 package de.paul.triebel.schule.WordSort.Gui.RightClick;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -11,13 +11,16 @@ import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 
 public class RightClickMenu extends JPopupMenu {
 	
+	private JMenuItem i1, i2, i3;
+
 	public RightClickMenu(DragObject o) {
 		super();
 		
-		JMenuItem i2 = new JMenuItem((String) main.getLanguageFile().get("color"));
-		JMenuItem i3 = new JMenuItem((String) main.getLanguageFile().get("remove"));
+		i1 = new JMenuItem((String) main.getLanguageFile().get("color"));
+		i2 = new JMenuItem((String) main.getLanguageFile().get("remove"));
+		i3 = new JMenuItem((String) main.getLanguageFile().get("connect"));
 		
-		i2.addActionListener(new ActionListener() {
+		i1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -25,7 +28,7 @@ public class RightClickMenu extends JPopupMenu {
 				close();
 			}
 		});
-		i3.addActionListener(new ActionListener() {
+		i2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -33,10 +36,26 @@ public class RightClickMenu extends JPopupMenu {
 				close();
 			}
 		});
-		
-		add(i2);
+		i3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				o.connectSelected();
+				close();
+			}
+		});
+	}
+	
+	@Override
+	public void show(Component var1, int var2, int var3) {
+		removeAll();
+		add(i1);
+		if (!main.getGui().dragPanel.selected.isEmpty()) {
+			add(i3);
+		}
 		addSeparator();
-		add(i3);
+		add(i2);
+		super.show(var1, var2, var3);
 	}
 
 	private void close() {

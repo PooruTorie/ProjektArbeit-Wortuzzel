@@ -28,8 +28,10 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	private Color borderColor;
 	public int index;
 	
+	private boolean selected;
+	
 	public DragObject(String text, Color color, Point position, int index) {
-		super(" "+text+" ");
+		super(text);
 		this.index = index;
 		
 		setBackground(color);
@@ -43,6 +45,17 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 		addMouseMotionListener(this);
 		
 		setComponentPopupMenu(new RightClickMenu(this));
+	}
+	
+	@Override
+	public void setBackground(Color bg) {
+		int c = (bg.getRed()+bg.getGreen()+bg.getBlue())/3;
+		if (c > 160) {
+			setForeground(Color.BLACK);
+		} else {
+			setForeground(Color.WHITE);
+		}
+		super.setBackground(bg);
 	}
 
 	public static Dimension getSize(String text) {
@@ -109,29 +122,72 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		setBorderColor(Color.GRAY);
+		if (selected) {
+			setBorderColor(new Color(100, 100, 200));
+		} else {
+			setBorderColor(Color.GRAY);
+		}
 		repaint();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		setBorderColor(Color.BLACK);
+		if (selected) {
+			setBorderColor(new Color(50, 50, 200));
+		} else {
+			setBorderColor(Color.BLACK);
+		}
 		repaint();
 	}
 	
 	public void removeLine() {
-		ArrayList<DragObject> os = main.getGui().dragPanel.objects.get(index);
-		main.getGui().dragPanel.objects.remove(index);
+		ArrayList<DragObject> os = DragPanel.words.get(index);
+		DragPanel.words.remove(index);
 		for (DragObject o : os) {
 			main.getGui().dragPanel.remove(o);
 		}
-		for (ArrayList<DragObject> list : main.getGui().dragPanel.objects) {
+		for (ArrayList<DragObject> list : DragPanel.words) {
 			for (DragObject o : list) {
 				if (o.index > index) {
 					o.index--;
 				}
 			}
 		}
+	}
+	
+	public void selected(boolean b) {
+		selected = b;
+		
+		if (b) {
+			setBorderColor(new Color(50, 50, 200));
+		} else {
+			setBorderColor(Color.BLACK);
+		}
+	}
+
+	public void connectSelected() {
+		ArrayList<DragObject> word = DragPanel.words.get(index);
+		ArrayList<DragObject> selected = main.getGui().dragPanel.selected;
+		
+		String text = getText().substring(1, getText().length()-1);
+		
+		for (DragObject o : selected) {
+			if (word.contains(o)) {
+				if (o != this) {
+					text += o.getText().substring(0, o.getText().length()-1);
+					
+					System.out.println(selected);
+					
+					main.getGui().dragPanel.remove(o);
+					word.remove(o);
+				}
+			}
+		}
+		
+		setText(text);
+		
+		DragPanel.words.set(index, word);
+		main.getGui().dragPanel.clearSelected();
 	}
 	
 	public void setBorderColor(Color borderColor) {
@@ -154,12 +210,18 @@ public class DragObject extends JLabel implements MouseListener, MouseMotionList
 	
 	@Override
 	public String toString() {
-		return getText().replace(" ", "")+"_"+index;
+		return getText().substring(1, getText().length()-2)+"_"+index;
 	}
 	
 	public void update() {
 		setFont(main.getDragObjectFont());
 		setSize(getSize(getText()));
+	}
+	
+	@Override
+	public void setText(String text) {
+		super.setText(" "+text+" ");
+		setBounds(new Rectangle(getLocation(), getSize(" "+text+" ")));
 	}
 	
 	public static void updateFont() {

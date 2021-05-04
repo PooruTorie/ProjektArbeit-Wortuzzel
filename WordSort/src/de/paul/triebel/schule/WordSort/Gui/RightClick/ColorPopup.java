@@ -11,9 +11,10 @@ public class ColorPopup {
 	
 	public ColorPopup(DragObject o) {
 		Color c = JColorChooser.showDialog(o, "", o.getBackground());
-		
-		for (DragObject d : DragPanel.objects.get(o.index)) {
-			d.setBackground(c);
+		if (c != null) {
+			for (DragObject d : DragPanel.words.get(o.index)) {
+				d.setBackground(c);
+			}
 		}
 	}
 }

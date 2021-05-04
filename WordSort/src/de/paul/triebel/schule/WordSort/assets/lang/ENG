@@ -20,6 +20,7 @@
    
    "color": "Change Color",
    "remove": "Remove",
+   "connect": "Connect Selected",
    
    "longerror": "The Word %word% is to Long",
    

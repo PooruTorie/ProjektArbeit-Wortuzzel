@@ -17,6 +17,8 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 import javax.swing.Action;
@@ -28,70 +30,62 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 
+import de.paul.triebel.schule.WordSort.JLink;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.assets.assets;
 
-public class StartScreen extends JDialog implements MouseListener {
-	
-	private JButton play;
-	
-	Icon icon;
-	Icon iconSelected;
+public class StartScreen extends JDialog {
 
 	public StartScreen(Gui gui) {
 		super(gui, "Start Screen");
 		
 		setFont(CustomFont.get(50));
-		setLayout(new GridLayout(0, 1));
+		setLayout(new GridLayout(4, 1));
 		
 		JPanel textPanel = new JPanel();
-		JLabel l = new JLabel((String) main.getLanguageFile().get("tutorial"));
+		textPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JLabel l = new JLabel("   "+(String) main.getLanguageFile().get("tutorial")+"   ");
 		l.setFont(CustomFont.get(main.getFontSize()*4));
 		textPanel.add(l);
 		add(textPanel);
 		
 		try {
-			icon = new ImageIcon(ImageIO.read(assets.getFile("textures/video.png")));
-			iconSelected = new ImageIcon(ImageIO.read(assets.getFile("textures/videoSelected.png")));
-			
-			play = new JButton(icon);
-			
-			play.setBackground(new Color(0, 0, 0, 0));
-			play.setOpaque(false);
-			play.setContentAreaFilled(false);
-			play.setBorderPainted(false);
-			play.setFocusPainted(false);
-			
-			play.addMouseListener(this);
-			play.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						Desktop.getDesktop().open(assets.getFile("video.mp4"));
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-			
-			add(play);
-		} catch (Exception e) {
-			e.printStackTrace();
+			JPanel linkPanel = new JPanel();
+			linkPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+			JLink link = new JLink("Haben sie Fragen oder Fehler gefunden?", new URI("https://github.com/NutellaJunge/ProjektArbeit-Wortuzzel/issues"));
+			link.setFont(CustomFont.get(60));
+			linkPanel.add(link);
+			add(linkPanel);
+		} catch (URISyntaxException e1) {
+			e1.printStackTrace();
 		}
+		
+		JPanel changeLogPanel = new JPanel();
+		changeLogPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		String list = "";
+		for (String log : main.log) {
+			list+="<li>"+log+"</li>";
+		}
+		JLabel title = new JLabel("<html>Neuerungen:<br><ul>"+list +"</ul></html>");
+		title.setFont(CustomFont.get(30));
+		changeLogPanel.add(title);
+		add(changeLogPanel);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		JCheckBox show = new JCheckBox("Show on Start");
+		show.setFont(CustomFont.get(30));
 		show.setSelected((boolean) main.getConfig().get("show_start_screen"));
 		show.setBackground(Color.RED);
 		
 		JButton next = new JButton("Next >>>");
-		
+		next.setFont(CustomFont.get(30));
 		next.addActionListener(new ActionListener() {
 			
 			@Override
@@ -109,24 +103,4 @@ public class StartScreen extends JDialog implements MouseListener {
 		
 		setVisible(true);
 	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		play.setIcon(iconSelected);
-		repaint();
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		play.setIcon(icon);
-		repaint();
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseClicked(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	
 }

@@ -1,7 +1,9 @@
 package de.paul.triebel.schule.WordSort.Gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,9 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -120,72 +124,35 @@ public class GuiMenu extends JMenuBar {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					JDialog d = new JDialog(main.getGui(), (String) main.getLanguageFile().get("help"));
-					d.setFont(CustomFont.get(10));
-					d.setSize(400, 280);
-					d.setLayout(new GridLayout(0, 2));
-					
-					JPanel textPanel = new JPanel();
-					JLabel l = new JLabel((String) main.getLanguageFile().get("tutorial"));
-					l.setFont(CustomFont.get(main.getFontSize()));
-					textPanel.add(l);
-					d.add(textPanel);
-					
 					try {
-						ImageIcon icon = new ImageIcon(ImageIO.read(assets.getFile("textures/video.png")));
-						ImageIcon iconSelected = new ImageIcon(ImageIO.read(assets.getFile("textures/videoSelected.png")));
-						
-						JButton play = new JButton(icon);
-						
-						play.setBackground(new Color(0, 0, 0, 0));
-						play.setOpaque(false);
-						play.setContentAreaFilled(false);
-						play.setBorderPainted(false);
-						play.setFocusPainted(false);
-						
-						play.addMouseListener(new MouseListener() {
+						JDialog d = new JDialog(main.getGui(), (String) main.getLanguageFile().get("help"));
+						d.setFont(CustomFont.get(10));
+						d.setLayout(new GridLayout(2, 1));
 							
-							@Override
-							public void mouseEntered(MouseEvent e) {
-								play.setIcon(iconSelected);
-								d.repaint();
-							}
-
-							@Override
-							public void mouseExited(MouseEvent e) {
-								play.setIcon(icon);
-								d.repaint();
-							}
-
-							@Override
-							public void mouseClicked(MouseEvent e) {}
-
-							@Override
-							public void mousePressed(MouseEvent e) {}
-
-							@Override
-							public void mouseReleased(MouseEvent e) {}
-						});
 						
-						play.addActionListener(new ActionListener() {
-							
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								try {
-									Desktop.getDesktop().open(assets.getFile("video.mp4"));
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-						});
-						textPanel.add(play);
+						JPanel linkPanel = new JPanel();
+						linkPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+						JLink link = new JLink("Haben sie Fragen oder Fehler gefunden?", new URI("https://github.com/NutellaJunge/ProjektArbeit-Wortuzzel/issues"));
+						link.setFont(CustomFont.get(60));
+						linkPanel.add(link);
+						d.add(linkPanel);
 						
-						JLink link = new JLink("Haben sie Fragen oder Fehler?", new URI("https://github.com/NutellaJunge/ProjektArbeit-Wortuzzel/issues"));
-						d.add(link);
+						JPanel changeLogPanel = new JPanel();
+						changeLogPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+						String list = "";
+						for (String log : main.log) {
+							list+="<li>"+log+"</li>";
+						}
+						JLabel title = new JLabel("<html>Neuerungen:<br><ul>"+list +"</ul></html>");
+						title.setFont(CustomFont.get(30));
+						changeLogPanel.add(title);
+						d.add(changeLogPanel);
+						
+						d.pack();
 						
 						d.setVisible(true);
-					} catch (Exception e1) {
-						e1.printStackTrace();
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 				}
 			});

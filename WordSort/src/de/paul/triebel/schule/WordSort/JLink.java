@@ -40,13 +40,16 @@ public class JLink extends JLabel implements MouseListener {
 		setForeground(Color.BLUE);
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		Font font = getFont();
-        Map attributes = font.getAttributes();
-        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-
-        setFont(font.deriveFont(attributes));
+		setFont(getFont());
 		
 		addMouseListener(this);
+	}
+	
+	@Override
+	public void setFont(Font font) {
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		super.setFont(font.deriveFont(attributes));
 	}
 
 	@Override

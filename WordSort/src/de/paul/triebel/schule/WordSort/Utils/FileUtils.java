@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,24 +34,15 @@ public class FileUtils {
 
 	public static void compileToFile(File saveFile, ArrayList<ArrayList<DragObject>> objects) {
 		try {
-			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile), "UTF-8"));
+			DataOutputStream out = new DataOutputStream(new FileOutputStream(saveFile));
 			
 			for (int i = 0; i < objects.size(); i++) {
 				for (DragObject o : objects.get(i)) {
-					out.write(13);
-					
-					out.write(""+o.getText().replace(" ", ""));
-					out.write(0);
-					out.write(""+i);
-					out.write(0);
-					out.write(""+MathUtils.remap(0, main.getGui().dragPanel.getSize().width+(o.getSize().width/2), 0, 100, o.getX()));
-					out.write(0);
-					out.write(""+MathUtils.remap(0, main.getGui().dragPanel.getSize().height+(o.getSize().height/2), 0, 100, o.getY()));
-					out.write(0);
-					out.write(""+o.getBackground().getRGB());
-					out.write(0);
-					
-					out.flush();
+					out.writeUTF(o.getText().substring(1, o.getText().length()-1));
+					out.writeInt(i);
+					out.writeFloat(MathUtils.remap(0, main.getGui().dragPanel.getSize().width+(o.getSize().width/2), 0, 100, o.getX()));
+					out.writeFloat(MathUtils.remap(0, main.getGui().dragPanel.getSize().height+(o.getSize().height/2), 0, 100, o.getY()));
+					out.writeInt(o.getBackground().getRGB());
 				}
 			}
 			
@@ -62,49 +55,38 @@ public class FileUtils {
 	
 	public static ArrayList<ArrayList<DragObject>> compileFromFile(File openFile) {
 		try {
-			BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(openFile), "UTF-8"));
-			ArrayList<Byte> d = new ArrayList<>();
-			
-			while (r.ready()) {
-				d.add((byte) r.read());
-			}
-			r.close();
-			
-			Iterator<Byte> data = d.iterator();
-			
+			DataInputStream r = new DataInputStream(new FileInputStream(openFile));
 			ArrayList<ArrayList<DragObject>> os = new ArrayList<>();
 			
-			while (data.hasNext()) {
-				byte startByte = data.next();
-				if (startByte == 13) {
-					byte[] text = getnextBytes(data);
-					int index = Integer.parseInt(new String(getnextBytes(data)));
-					byte[] xV = getnextBytes(data);
-					byte[] yV = getnextBytes(data);
-					byte[] rgb = getnextBytes(data);
-					
-					Dimension size = DragObject.getSize(" "+text+" ");
-					
-					int x = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().width+(size.width/2), Float.parseFloat(new String(xV)));
-					int y = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().height+(size.height/2), Float.parseFloat(new String(yV)));
-					
-					Point pos = new Point(x, y);
-					
-					ArrayList<DragObject> wos = new ArrayList<>();
-					try {
-						wos = os.get(index);
-					} catch (Exception e) {}
-					
-					DragObject o = new DragObject(new String(text), new Color(Integer.parseInt(new String(rgb))), pos, index);
-					wos.add(o);
-					
-					try {
-						os.set(index, wos);
-					} catch (Exception e) {
-						os.add(wos);
-					}
+			while (r.available() > 0) {
+				String text = r.readUTF();
+				int index = r.readInt();
+				float xV = r.readFloat();
+				float yV = r.readFloat();
+				int rgb = r.readInt();
+				
+				Dimension size = DragObject.getSize(" "+text+" ");
+				
+				int x = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().width+(size.width/2), xV);
+				int y = (int) MathUtils.remap(0, 100, 0, main.getGui().dragPanel.getSize().height+(size.height/2), yV);
+				
+				Point pos = new Point(x, y);
+				
+				ArrayList<DragObject> wos = new ArrayList<>();
+				try {
+					wos = os.get(index);
+				} catch (Exception e) {}
+				
+				DragObject o = new DragObject(new String(text), new Color(rgb), pos, index);
+				wos.add(o);
+				
+				try {
+					os.set(index, wos);
+				} catch (Exception e) {
+					os.add(wos);
 				}
 			}
+			r.close();
 			
 			return os;
 		} catch (Exception e) {
@@ -112,28 +94,5 @@ public class FileUtils {
 			JOptionPane.showMessageDialog(main.getGui(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
-	}
-
-	private static byte[] getnextBytes(Iterator<Byte> d) {
-		ArrayList<Byte> data = new ArrayList<>();
-		
-		while (d.hasNext()) {
-			byte b = d.next();
-			if (b == 0) {
-				return allToByte(data);
-			} else {
-				data.add(b);
-			}
-		}
-		
-		return allToByte(data);
-	}
-
-	private static byte[] allToByte(ArrayList<Byte> data) {
-		byte[] d = new byte[data.size()];
-		for (int i = 0; i < data.size(); i++) {
-			d[i] = data.get(i);
-		}
-		return d;
 	}
 }
