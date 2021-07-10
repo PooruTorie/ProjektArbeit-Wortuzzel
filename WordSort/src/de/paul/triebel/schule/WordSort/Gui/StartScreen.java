@@ -37,7 +37,7 @@ import javax.swing.border.Border;
 
 import de.paul.triebel.schule.WordSort.JLink;
 import de.paul.triebel.schule.WordSort.main;
-import de.paul.triebel.schule.WordSort.assets.assets;
+import de.paul.triebel.schule.WordSort.assets.Assets;
 
 public class StartScreen extends JDialog {
 

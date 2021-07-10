@@ -15,8 +15,6 @@ import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
-import javax.xml.ws.soap.AddressingFeature;
-
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.RightClick.RightClickMenu;
 import de.paul.triebel.schule.WordSort.Utils.MathUtils;

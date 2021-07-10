@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import de.paul.triebel.schule.WordSort.JLink;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Options.Options;
-import de.paul.triebel.schule.WordSort.assets.assets;
+import de.paul.triebel.schule.WordSort.assets.Assets;
 
 public class GuiMenu extends JMenuBar {
 	

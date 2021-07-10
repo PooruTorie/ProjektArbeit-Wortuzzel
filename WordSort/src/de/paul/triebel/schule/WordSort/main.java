@@ -23,7 +23,7 @@ import de.paul.triebel.schule.WordSort.Gui.CustomFont;
 import de.paul.triebel.schule.WordSort.Gui.Gui;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragObject;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
-import de.paul.triebel.schule.WordSort.assets.assets;
+import de.paul.triebel.schule.WordSort.assets.Assets;
 
 public class main {
 	
@@ -43,8 +43,8 @@ public class main {
 		System.out.println(Arrays.toString(args));
 		
 		try {
-			config = new Config(assets.getFile("config.ini"));
-			lang = new LanguageFile(assets.getFile("lang/"+config.get("lang")));
+			config = new Config(Assets.getFile("config.ini"));
+			lang = new LanguageFile(Assets.getFile("lang/"+config.get("lang")));
 			gui = new Gui();
 			
 			testUpdate();
@@ -120,7 +120,7 @@ public class main {
 		LanguageFile[] list = new LanguageFile[f.size()];
 		for (int i = 0; i < list.length; i++) {
 			try {
-				list[i] = new LanguageFile(assets.getFile("lang/"+f.get(i)));
+				list[i] = new LanguageFile(Assets.getFile("lang/"+f.get(i)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

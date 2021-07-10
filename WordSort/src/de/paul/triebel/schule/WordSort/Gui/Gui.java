@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import de.paul.triebel.schule.WordSort.main;
 import de.paul.triebel.schule.WordSort.Gui.Drag.DragPanel;
 import de.paul.triebel.schule.WordSort.Gui.Input.InputField;
-import de.paul.triebel.schule.WordSort.assets.assets;
+import de.paul.triebel.schule.WordSort.assets.Assets;
 
 public class Gui extends JFrame implements ComponentListener {
 	
@@ -36,7 +36,7 @@ public class Gui extends JFrame implements ComponentListener {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		try {
-			BufferedImage icon = ImageIO.read(assets.getFile("textures/icon.png"));
+			BufferedImage icon = ImageIO.read(Assets.getFile("textures/icon.png"));
 			setIconImage(icon);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -83,7 +83,7 @@ public class Gui extends JFrame implements ComponentListener {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		try {
-			BufferedImage icon = ImageIO.read(assets.getFile("textures/icon.png"));
+			BufferedImage icon = ImageIO.read(Assets.getFile("textures/icon.png"));
 			setIconImage(icon);
 		} catch (IOException e) {
 			e.printStackTrace();

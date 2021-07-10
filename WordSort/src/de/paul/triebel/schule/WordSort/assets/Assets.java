@@ -17,14 +17,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-public class assets {
+public class Assets {
 	
-	private static File folder = new File(System.getenv("APPDATA")+"/Wortuzzel");
+	private static File folder = new File(System.getenv("APPDATA")+"/Wortuzzel/");
 
 	public static File getFile(String string) {
-		File file = new File(folder.getAbsolutePath()+"/"+string);
+		File file = new File(folder, string);
 		if (!file.exists()) {
-			InputStream i = assets.class.getResourceAsStream(string);
+			InputStream i = Assets.class.getResourceAsStream(string);
 			if (!folder.exists()) {
 				folder.mkdirs();
 			}
